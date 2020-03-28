@@ -1,0 +1,19 @@
+# Maintainer: Alex Creio <creio@tuta.io>
+
+pkgname=ui-themes
+pkgver=1.0
+pkgrel=1
+pkgdesc='An Flat Gtk+ theme based on Arc'
+url="https://github.com/ctlos/ctlos-themes"
+arch=("any")
+groups=('ctlos')
+license=("GPL2")
+optdepends=("gtk-engine-murrine" "gtk-engines")
+source=("git+${url}.git")
+sha256sums=('SKIP')
+
+package() {
+  cd ctlos-themes/ui-themes/ || return
+  mkdir -p "${pkgdir}/usr/share/themes"
+  cp -rf *ui "${pkgdir}/usr/share/themes"
+}

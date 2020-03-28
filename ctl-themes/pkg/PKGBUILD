@@ -1,0 +1,19 @@
+# Maintainer: Alex Creio <creio@tuta.io>
+
+pkgname=ctl-themes
+pkgver=1.2
+pkgrel=3
+pkgdesc='An Flat Gtk+ theme based on Material Design'
+url="https://github.com/ctlos/ctlos-themes"
+arch=("any")
+groups=('ctlos')
+license=("GPL2")
+optdepends=("gtk-engine-murrine" "gtk-engines")
+source=("git+${url}.git")
+sha256sums=('SKIP')
+
+package() {
+  cd ctlos-themes/ctl-themes/ || return
+  mkdir -p "${pkgdir}/usr/share/themes"
+  ./install.sh -d "${pkgdir}/usr/share/themes"
+}
