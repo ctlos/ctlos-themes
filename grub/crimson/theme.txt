@@ -1,7 +1,7 @@
 # Crimson theme for GRUB2
 
 # general settings
-title-color: "#CB252D"
+title-color: "#5a74ca"
 title-font: "Trump Regular 42"
 #title-text: "Crimson Boot"
 
@@ -28,7 +28,7 @@ terminal-box: "terminal_*.png"
 	item_color = "#CCCCCC"
 	item_font = "Trump Regular 42"
 
-	selected_item_color= "#CB252D"
+	selected_item_color= "#5a74ca"
 	selected_item_pixmap_style = "selector_*.png"
 
 	icon_height = 0
