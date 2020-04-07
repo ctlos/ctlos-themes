@@ -57,7 +57,7 @@ window.*.label.text.color:               #d9e1e8
 window.*.title.bg.color:                 #16191f
 window.*.title.separator.color:          #16191f
 window.*.border.color:                   #16191f
-window.*.handle.bg.color:                #67b2ef
+window.*.handle.bg.color:                #d9e1e8
 
 # Section: fonts
 window.active.label.text.font:          shadow=n

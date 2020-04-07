@@ -64,7 +64,7 @@ menu.title.text.font:                   shadow=n
 
 # Section: misc
 border.width:                           0
-padding.width:                          10
+padding.width:                          5
 padding.height:                         7
 window.client.padding.height:           0
 window.client.padding.width:            0
