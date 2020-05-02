@@ -1,7 +1,7 @@
 # Maintainer: Alex Creio <creio@tuta.io>
 
 pkgname=ui-themes
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc='An Flat Gtk+ theme based on Arc'
 url="https://github.com/ctlos/ctlos-themes"
