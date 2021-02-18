@@ -14,7 +14,7 @@ source=("git+${url}.git")
 sha256sums=('SKIP')
 
 package() {
-  cd ${srcdir}/ctl-themes
+  cd ${srcdir}/${pkgname}/ctl-themes
   mkdir -p "${pkgdir}/usr/share/themes"
   ./install.sh -d "${pkgdir}/usr/share/themes"
 }
