@@ -1,5 +1,5 @@
-# Maintainer: Alex Creio <creio@tuta.io>
-
+# Maintainer: Alex Creio <ctlos@protonmail.com>
+srcname=ctlos-themes
 pkgname=ctlos-sddm-themes
 pkgver=1.2
 pkgrel=2
@@ -13,7 +13,7 @@ source=("git+${url}.git")
 sha256sums=('SKIP')
 
 package() {
-  cd ${srcdir}/sddm
+  cd ${srcdir}/${srcname}/sddm
   mkdir -p "${pkgdir}/usr/share/sddm/themes"
   cp -rf {darkine,slice} "${pkgdir}/usr/share/sddm/themes"
 }

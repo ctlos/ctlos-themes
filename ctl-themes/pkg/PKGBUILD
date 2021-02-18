@@ -1,5 +1,5 @@
-# Maintainer: Alex Creio <creio@tuta.io>
-
+# Maintainer: Alex Creio <ctlos@protonmail.com>
+srcname=ctlos-themes
 pkgname=ctl-themes
 pkgver=1.2
 pkgrel=3
@@ -14,7 +14,7 @@ source=("git+${url}.git")
 sha256sums=('SKIP')
 
 package() {
-  cd ${srcdir}/${pkgname}/ctl-themes
+  cd ${srcdir}/${srcname}/ctl-themes
   mkdir -p "${pkgdir}/usr/share/themes"
   ./install.sh -d "${pkgdir}/usr/share/themes"
 }
