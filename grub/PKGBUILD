@@ -8,7 +8,7 @@ url="https://github.com/ctlos/ctlos-themes"
 arch=("any")
 groups=('ctlos')
 license=("GPL2")
-depends=('grub')
+depends=('git' 'grub')
 source=("git+${url}.git")
 sha256sums=('SKIP')
 

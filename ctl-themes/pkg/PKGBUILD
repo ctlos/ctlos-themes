@@ -8,6 +8,7 @@ url="https://github.com/ctlos/ctlos-themes"
 arch=("any")
 groups=('ctlos')
 license=("GPL2")
+depends=('git')
 optdepends=("gtk-engine-murrine" "gtk-engines")
 source=("git+${url}.git")
 sha256sums=('SKIP')
