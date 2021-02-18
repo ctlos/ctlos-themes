@@ -13,7 +13,7 @@ source=("git+${url}.git")
 sha256sums=('SKIP')
 
 package() {
-  cd ctlos-themes/ui-themes/ || return
+  cd ${srcdir}/ui-themes
   mkdir -p "${pkgdir}/usr/share/themes"
   cp -rf *ui "${pkgdir}/usr/share/themes"
 }

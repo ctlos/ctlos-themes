@@ -1,0 +1,20 @@
+# Maintainer: Alex Creio <creio@tuta.io>
+
+pkgname=ctlos-grub-themes
+pkgver=1.2
+pkgrel=1
+pkgdesc='Grub themes'
+url="https://github.com/ctlos/ctlos-themes"
+arch=("any")
+groups=('ctlos')
+license=("GPL2")
+depends=('grub')
+source=("git+${url}.git")
+sha256sums=('SKIP')
+
+package() {
+  cd ${srcdir}/grub
+  mkdir -p "${pkgdir}/usr/share/grub/themes"
+  cp -rf Stylish "${pkgdir}/usr/share/grub/themes"
+  cp -rf crimson "${pkgdir}/usr/share/grub/themes"
+}
