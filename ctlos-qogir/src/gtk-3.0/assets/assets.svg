@@ -93,7 +93,7 @@
        id="selected_bg_color"
        osb:paint="solid">
       <stop
-         stop-color="#5a74ca"
+         stop-color="#f7768e"
          offset="0"
          id="stop14" />
     </linearGradient>

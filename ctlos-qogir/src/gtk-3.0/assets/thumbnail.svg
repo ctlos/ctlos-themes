@@ -45,7 +45,7 @@
        id="selected_bg_color-3"
        osb:paint="solid">
       <stop
-         style="stop-color:#5a74ca;stop-opacity:1;"
+         style="stop-color:#f7768e;stop-opacity:1;"
          offset="0"
          id="stop5956-6" />
     </linearGradient>
@@ -210,7 +210,7 @@
            height="5"
            width="5"
            id="rect2030"
-           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#5a74ca;fill-opacity:1;stroke:none;stroke-width:2.61048746;marker:none;enable-background:accumulate"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#f7768e;fill-opacity:1;stroke:none;stroke-width:2.61048746;marker:none;enable-background:accumulate"
            ry="2.5" />
         <path
            style="opacity:1;fill:#9d9d9d;fill-opacity:1;stroke:none;stroke-width:0.88235295;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
@@ -321,7 +321,7 @@
            style="opacity:0;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.56666666;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
         <rect
            ry="2.5"
-           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#5a74ca;fill-opacity:1;stroke:none;stroke-width:2.61048746;marker:none;enable-background:accumulate"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#f7768e;fill-opacity:1;stroke:none;stroke-width:2.61048746;marker:none;enable-background:accumulate"
            id="rect1220"
            width="5"
            height="5"
