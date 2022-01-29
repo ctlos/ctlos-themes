@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="507"
    height="416"
    version="1.1"
    id="svg1072"
    sodipodi:docname="assets-dark.svg"
-   inkscape:version="0.92.4 5da689c313, 2019-01-14">
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata
      id="metadata1076">
     <rdf:RDF>
@@ -23,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -36,22 +35,23 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="710"
+     inkscape:window-width="1920"
+     inkscape:window-height="1050"
      id="namedview1074"
      showgrid="false"
-     inkscape:zoom="0.56730769"
-     inkscape:cx="253.5"
-     inkscape:cy="208"
+     inkscape:zoom="12.836708"
+     inkscape:cx="294.81859"
+     inkscape:cy="31.511195"
      inkscape:window-x="0"
-     inkscape:window-y="28"
+     inkscape:window-y="30"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1072" />
+     inkscape:current-layer="svg1072"
+     inkscape:pagecheckerboard="0" />
   <defs
      id="defs131">
     <linearGradient
        id="selected_bg_color"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          stop-color="#5a74ca"
          offset="0"
@@ -3737,16 +3737,20 @@
     </g>
     <g
        transform="matrix(.26458 0 0 .26458 98.402 -171.78)"
-       id="g933">
+       id="g933"
+       style="fill:#f7768e;fill-opacity:1">
       <g
          transform="rotate(45,7.5,1026.4)"
-         id="g931">
+         id="g931"
+         style="fill:#f7768e;fill-opacity:1">
         <g
            transform="translate(12.374,11.531)"
-           id="g929">
+           id="g929"
+           style="fill:#f7768e;fill-opacity:1">
           <g
              transform="translate(-3,-5)"
-             id="g925">
+             id="g925"
+             style="fill:#f7768e;fill-opacity:1">
             <rect
                x="8.3535"
                y="1033.7"
@@ -3755,7 +3759,8 @@
                rx=".66666"
                ry=".66666"
                fill="url(#d)"
-               id="rect921" />
+               id="rect921"
+               style="fill:#f7768e;fill-opacity:1" />
             <rect
                x="11.353"
                y="1027.7"
@@ -3763,16 +3768,9 @@
                height="8"
                ry="0"
                fill="url(#c)"
-               id="rect923" />
+               id="rect923"
+               style="fill:#f7768e;fill-opacity:1" />
           </g>
-          <rect
-             transform="translate(0,1036.4)"
-             x="5"
-             y="-8"
-             width="3"
-             height="1"
-             fill-opacity="0"
-             id="rect927" />
         </g>
       </g>
     </g>
@@ -3797,7 +3795,8 @@
        ry=".66146"
        color="#000000"
        fill="url(#b)"
-       id="rect940" />
+       id="rect940"
+       style="fill:#f7768e;fill-opacity:1" />
   </g>
   <g
      id="menu-checkbox-checked-insensitive"
@@ -3819,16 +3818,20 @@
     </g>
     <g
        transform="matrix(.26458 0 0 .26458 98.402 -171.78)"
-       id="g961">
+       id="g961"
+       style="fill:#f7768e;fill-opacity:1">
       <g
          transform="rotate(45,7.5,1026.4)"
-         id="g959">
+         id="g959"
+         style="fill:#f7768e;fill-opacity:1">
         <g
            transform="translate(12.374,11.531)"
-           id="g957">
+           id="g957"
+           style="fill:#f7768e;fill-opacity:1">
           <g
              transform="translate(-3,-5)"
-             id="g953">
+             id="g953"
+             style="fill:#f7768e;fill-opacity:1">
             <rect
                x="8.3535"
                y="1033.7"
@@ -3837,7 +3840,8 @@
                rx=".66666"
                ry=".66666"
                fill="url(#d)"
-               id="rect949" />
+               id="rect949"
+               style="fill:#f7768e;fill-opacity:1" />
             <rect
                x="11.353"
                y="1027.7"
@@ -3845,16 +3849,9 @@
                height="8"
                ry="0"
                fill="url(#c)"
-               id="rect951" />
+               id="rect951"
+               style="fill:#f7768e;fill-opacity:1" />
           </g>
-          <rect
-             transform="translate(0,1036.4)"
-             x="5"
-             y="-8"
-             width="3"
-             height="1"
-             fill-opacity="0"
-             id="rect955" />
         </g>
       </g>
     </g>
@@ -3881,7 +3878,8 @@
        ry=".66146"
        color="#000000"
        fill="url(#b)"
-       id="rect968" />
+       id="rect968"
+       style="fill:#f7768e;fill-opacity:1" />
   </g>
   <g
      id="checkbox-unchecked"
@@ -3955,16 +3953,20 @@
     </g>
     <g
        transform="matrix(.26458 0 0 .26458 98.402 -171.78)"
-       id="g1009">
+       id="g1009"
+       style="fill:#f7768e;fill-opacity:1">
       <g
          transform="rotate(45,7.5,1026.4)"
-         id="g1007">
+         id="g1007"
+         style="fill:#f7768e;fill-opacity:1">
         <g
            transform="translate(12.374,11.531)"
-           id="g1005">
+           id="g1005"
+           style="fill:#f7768e;fill-opacity:1">
           <g
              transform="translate(-3,-5)"
-             id="g1001">
+             id="g1001"
+             style="fill:#f7768e;fill-opacity:1">
             <rect
                x="8.3535"
                y="1033.7"
@@ -3973,7 +3975,8 @@
                rx=".66666"
                ry=".66666"
                fill="url(#d)"
-               id="rect997" />
+               id="rect997"
+               style="fill:#f7768e;fill-opacity:1" />
             <rect
                x="11.353"
                y="1027.7"
@@ -3981,16 +3984,9 @@
                height="8"
                ry="0"
                fill="url(#c)"
-               id="rect999" />
+               id="rect999"
+               style="fill:#f7768e;fill-opacity:1" />
           </g>
-          <rect
-             transform="translate(0,1036.4)"
-             x="5"
-             y="-8"
-             width="3"
-             height="1"
-             fill-opacity="0"
-             id="rect1003" />
         </g>
       </g>
     </g>
@@ -4015,7 +4011,8 @@
        ry=".66146"
        color="#000000"
        fill="url(#b)"
-       id="rect1016" />
+       id="rect1016"
+       style="fill:#f7768e;fill-opacity:1" />
   </g>
   <g
      id="checkbox-checked-insensitive"
@@ -4040,13 +4037,16 @@
        id="g1037">
       <g
          transform="rotate(45,7.5,1026.4)"
-         id="g1035">
+         id="g1035"
+         style="fill:#f7768e;fill-opacity:1">
         <g
            transform="translate(12.374,11.531)"
-           id="g1033">
+           id="g1033"
+           style="fill:#f7768e;fill-opacity:1">
           <g
              transform="translate(-3,-5)"
-             id="g1029">
+             id="g1029"
+             style="fill:#f7768e;fill-opacity:1">
             <rect
                x="8.3535"
                y="1033.7"
@@ -4055,7 +4055,8 @@
                rx=".66666"
                ry=".66666"
                fill="url(#d)"
-               id="rect1025" />
+               id="rect1025"
+               style="fill:#f7768e;fill-opacity:1" />
             <rect
                x="11.353"
                y="1027.7"
@@ -4063,16 +4064,9 @@
                height="8"
                ry="0"
                fill="url(#c)"
-               id="rect1027" />
+               id="rect1027"
+               style="fill:#f7768e;fill-opacity:1" />
           </g>
-          <rect
-             transform="translate(0,1036.4)"
-             x="5"
-             y="-8"
-             width="3"
-             height="1"
-             fill-opacity="0"
-             id="rect1031" />
         </g>
       </g>
     </g>
@@ -4099,7 +4093,8 @@
        ry=".66146"
        color="#000000"
        fill="url(#b)"
-       id="rect1044" />
+       id="rect1044"
+       style="fill:#f7768e;fill-opacity:1" />
   </g>
   <g
      id="menubar_button"

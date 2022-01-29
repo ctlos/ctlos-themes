@@ -1,7 +1,7 @@
 # Maintainer: Alex Creio <ctlos@protonmail.com>
 srcname=ctlos-themes
 pkgname=ctlos-qogir
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc='An Flat Gtk+ theme based on Qogir'
 url="https://github.com/ctlos/ctlos-themes"
