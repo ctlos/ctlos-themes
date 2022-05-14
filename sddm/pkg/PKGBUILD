@@ -1,8 +1,8 @@
 # Maintainer: Alex Creio <ctlos@protonmail.com>
 srcname=ctlos-themes
 pkgname=ctlos-sddm-themes
-pkgver=1.2
-pkgrel=2
+pkgver=1.2.1
+pkgrel=1
 pkgdesc='Sddm themes'
 url="https://github.com/ctlos/ctlos-themes"
 arch=("any")
