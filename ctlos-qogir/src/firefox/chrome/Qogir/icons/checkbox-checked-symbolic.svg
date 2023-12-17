@@ -1,7 +1,7 @@
 <svg width="16" height="16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <linearGradient id="a" x1="10.5" x2="10.5" y1="1033.4" y2="1035.4" gradientTransform="matrix(.18709 .18709 -.18709 .18709 233.54 -66.78)" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#5a74ca" offset="0"/>
+   <stop stop-color="#5294e2" offset="0"/>
   </linearGradient>
  </defs>
  <g id="checkbox-checked" transform="matrix(3.7795 0 0 3.7795 -153 -476.52)">

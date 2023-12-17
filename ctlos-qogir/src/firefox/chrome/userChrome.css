@@ -18,8 +18,8 @@
  * This feature is included by default for Firefox 70+. */
 /*@import "Qogir/matching-autocomplete-width.css"; /**/
 
-/* Use circle title buttons old style */
-/*@import "Qogir/circle-title-buttons.css"; /**/
+/* Use square title buttons style */
+/*@import "Qogir/square-title-buttons.css"; /**/
 
 /* Use normal width tabs */
 /*@import "Qogir/normal-width-tabs.css"; /**/
@@ -36,6 +36,9 @@
 
 /* Make all tab icons look kinda like symbolic icons */
 /*@import "Qogir/symbolic-tab-icons.css"; /**/
+
+/* Move tabs to titlebar */
+@import "Qogir/top-tab-bottom-search.css"; /**/
 
 /* Import a custom stylesheet
  * Everything you add in your customChrome.css file (it doesn't exist by

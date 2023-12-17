@@ -58,9 +58,15 @@ $side_theme_alt_fg: $dark_sidebar_icon_fg;
   color: $side_theme_fg;
   background-color: $side_theme_bg;
 
+  &.has-open-popup,
   &:hover {
     color: $side_theme_alt_fg;
-    background-color: rgba($side_theme_alt_fg, 0.1);
+    background-color: mix($side_theme_alt_fg, $side_theme_bg, 10%);
+  }
+
+  &:active {
+    color: $side_theme_fg;
+    background-color: mix($side_theme_fg, $side_theme_bg, 15%);
   }
 
   &:disabled, label:disabled {
@@ -76,12 +82,12 @@ $side_theme_alt_fg: $dark_sidebar_icon_fg;
 }
 
 %side_searchbar {
-  background-image: image($side_theme_bg);
+  background: none;
   box-shadow: none;
   border: none;
 
   > revealer > box {
-    background: none;
+    background-color: $side_theme_bg;
     border: none;
   }
 
@@ -101,43 +107,12 @@ $side_theme_alt_fg: $dark_sidebar_icon_fg;
   }
 }
 
-%side_titlebutton {
-  button.titlebutton {
-    @each $k in ('close', 'maximize', 'minimize', 'restore') {
-      @each $l, $m in ('',''), (':backdrop','-backdrop'), (':hover','-hover'), (':active','-active') {
-        &.#{$k}#{$l} { background-image: -gtk-scaled(url('assets/titlebutton-#{$k}#{$m}-dark#{$asset_suffix_win}.png'),
-                                                     url('assets/titlebutton-#{$k}#{$m}-dark#{$asset_suffix_win}@2.png'));
-        }
-      }
-    }
-  }
-}
-
-%side_max_titlebutton {
-  button.titlebutton {
-    @each $l, $m in ('',''), (':backdrop','-backdrop'), (':hover','-hover'), (':active','-active') {
-      &.maximize#{$l} { background-image: -gtk-scaled(url('assets/titlebutton-restore#{$m}-dark#{$asset_suffix_win}.png'),
-                                                      url('assets/titlebutton-restore#{$m}-dark#{$asset_suffix_win}@2.png'));
-      }
-    }
-  }
-}
-
 %side_headerbar {
   color: $side_theme_fg;
   background-color: $side_theme_bg;
   background-image: image($side_theme_bg);
   border: none;
   box-shadow: none;
-
-  @extend %side_titlebutton;
-
-  .fullscreen &,
-  .maximized & {
-    > box.left.horizontal {
-      @extend %side_max_titlebutton;
-    }
-  }
 
   button:not(.titlebutton) {
     color: $side_theme_fg;
@@ -154,6 +129,8 @@ $side_theme_alt_fg: $dark_sidebar_icon_fg;
   }
 
   button.titlebutton {
+    color: $side_theme_fg;
+
     &.appmenu { // appmenu button
       border: none;
       min-height: 30px;
@@ -173,6 +150,29 @@ $side_theme_alt_fg: $dark_sidebar_icon_fg;
 
       &:checked, &:active {
         background-color: rgba($side_theme_fg, 0.25);
+      }
+    }
+
+    &.maximize, &.minimize {
+      &:hover {
+        background-color: rgba($side_theme_fg, 0.1);
+      }
+
+      &:active {
+        background-color: rgba($side_theme_fg, 0.2);
+        color: white;
+      }
+    }
+
+    &.close {
+      &:hover {
+        background-color: $wm_button_close_hover_bg;
+        color: white;
+      }
+
+      &:active {
+        background-color: $wm_button_close_active_bg;
+        color: white;
       }
     }
   }
@@ -219,7 +219,18 @@ $side_theme_alt_fg: $dark_sidebar_icon_fg;
   background-image: -gtk-scaled(url("assets/logo.svg"),url("assets/logo@2.svg")), image($dark_sidebar_icon_bg);
   background-repeat: no-repeat;
   background-size: 38px auto;
-  background-position: left center;
+
+  $_padding: 44px;
+
+  &:dir(ltr) {
+    background-position: left center;
+    padding-left: $_padding;
+  }
+
+  &:dir(rtl) {
+    background-position: right center;
+    padding-right: $_padding;
+  }
 }
 
 // Reset filechooser separator
@@ -231,32 +242,31 @@ filechooser {
 
 // Dark icon background sidebars
 .nautilus-window {
-  // &.csd.background, placessidebar list { background-color: transparent; }
+  background-color: $dark_sidebar_bg;
+  background-image: image($dark_sidebar_icon_bg);
+  background-size: 38px auto;
+  background-repeat: no-repeat;
+  border-radius: 0 0 $corner_radius;
+
+  &:dir(rtl) {
+    background-position: right;
+  }
 
   paned > separator {
     background-image: if($variant == 'light' and $titlebar == 'dark', _solid($base_color), _solid($dark_sidebar_border));
   }
 
   headerbar {
-    padding-left: if($menu == 'budgie', 5px + $header_padding, 48px);
-    @if $menu == 'gnome' { @extend %headerbar_image; } // Set nautilus headerbar mountain icon
+    @extend %headerbar_image; // Set nautilus headerbar mountain icon
 
     &, &:backdrop {
       box-shadow: inset 0 -1px if($variant=='light', rgba($dark_sidebar_icon_bg, 0.15), $dark_sidebar_icon_bg),
-                  inset 38px 0 0 0 if($menu=='budgie', $dark_sidebar_icon_bg, transparent);
-    }
-
-    @if $menu == 'budgie' {
-      button.titlebutton {
-        @extend %headerbar_appmenu;
-        &.appmenu { margin-left: -1px - $header_padding; }
-      }
+                  inset 38px 0 0 0 transparent;
     }
   }
 
   placessidebar.sidebar {
-    box-shadow: inset 38px 0 0 0 $dark_sidebar_icon_bg;
-    background-color: $dark_sidebar_bg;
+    background: none;
 
     row.sidebar-row {
       transition: none;
@@ -265,18 +275,47 @@ filechooser {
       .sidebar-icon { color: transparentize($dark_sidebar_icon_fg, 0.15); }
 
       image.sidebar-icon {
-        padding-right: 2px;
+        $_padding: 2px;
+        &:dir(ltr) {
+          padding-right: $_padding;
+        }
+
+        &:dir(rtl) {
+          padding-left: $_padding;
+        }
       }
 
       label.sidebar-label {
-        padding-right: 2px; padding-left: 20px;
+        $_padding_short_side: 2px;
+        $_padding_long_side: 20px;
+
+        &:dir(ltr) {
+          padding-right: $_padding_short_side;
+          padding-left: $_padding_long_side;
+        }
+
+        &:dir(rtl) {
+          padding-right: $_padding_long_side;
+          padding-left: $_padding_short_side;
+        }
       }
 
       &.has-open-popup,
       &:hover {
         background-color: transparentize($dark_sidebar_fg, 0.95);
-        box-shadow: inset -2px 0 lighten($selected_bg_color, 10%),
-                    inset 38px 0 0 0 $dark_sidebar_icon_bg;
+
+        $_shadow_length_higlight: 2px;
+        $_shadow_length_icon_bg: 38px;
+
+        &:dir(ltr) {
+          box-shadow: inset ($_shadow_length_higlight * -1) 0 lighten($selected_bg_color, 10%),
+                      inset $_shadow_length_icon_bg 0 0 0 $dark_sidebar_icon_bg;
+        }
+
+        &:dir(rtl) {
+          box-shadow: inset $_shadow_length_higlight 0 lighten($selected_bg_color, 10%),
+                      inset ($_shadow_length_icon_bg * -1) 0 0 0 $dark_sidebar_icon_bg;
+        }
       }
 
       &:disabled {
@@ -287,24 +326,41 @@ filechooser {
 
       &:selected.has-open-popup,
       &:selected, &:selected:hover, &:active:hover {
-        box-shadow: inset 38px 0 0 0 $selected_bg_color;
         background-color: rgba($selected_bg_color, 0.0);
         background-image: -gtk-scaled(url("assets/selected-dot.png"),
                                       url("assets/selected-dot@2.png"));
         background-repeat: no-repeat;
-        background-position: 42px center;
         .sidebar-label { color: $alt_dark_sidebar_fg; }
         // .sidebar-icon { color: inherit; }
+
+        $_shadow_length: 38px;
+        $_background_position: 42px;
+
+        &:dir(ltr) {
+          box-shadow: inset $_shadow_length 0 0 0 $selected_bg_color;
+          background-position: $_background_position center;
+        }
+
+        &:dir(rtl) {
+          box-shadow: inset ($_shadow_length * -1) 0 0 0 $selected_bg_color;
+          background-position: calc(100% - #{$_background_position}) center;
+        }
       }
 
       &:selected:hover, &:active:hover {
         background-color: transparentize($dark_sidebar_fg, 0.95);
-        box-shadow: inset -2px 0 lighten($selected_bg_color, 10%),
-                    inset 38px 0 0 0 $selected_bg_color;
-        background-image: -gtk-scaled(url("assets/selected-dot.png"),
-                                      url("assets/selected-dot@2.png"));
-        background-repeat: no-repeat;
-        background-position: 42px center;
+
+        $_shadow_length_higlight: 2px;
+        $_shadow_length_icon_bg: 38px;
+        &:dir(ltr) {
+          box-shadow: inset ($_shadow_length_higlight * -1) 0 lighten($selected_bg_color, 10%),
+                      inset $_shadow_length_icon_bg 0 0 $selected_bg_color;
+        }
+
+        &:dir(rtl) {
+          box-shadow: inset $_shadow_length_higlight 0 lighten($selected_bg_color, 10%),
+                      inset ($_shadow_length_icon_bg * -1) 0 0 0 $selected_bg_color;
+        }
       }
 
       button.sidebar-button {
@@ -322,7 +378,7 @@ filechooser {
         // .sidebar-icon { color: inherit; }
       }
 
-     &:backdrop { opacity: 0.75; }
+      &:backdrop { opacity: 0.75; }
 
       &:drop(active):not(:disabled) {
         &, label, .sidebar-icon { color: $drop_target_color; }
@@ -336,16 +392,19 @@ filechooser {
 
     separator { background-color: transparent; }
 
-    scrollbar { @extend %dark_sidebar_scrollbar }
+    scrollbar { @extend %dark_sidebar_scrollbar; }
   }
 }
 
+//
+// nemo
+//
 .nemo-window {
   .sidebar {
     color: $dark_sidebar_fg;
     background-color: $dark_sidebar_bg;
 
-    .view, row {
+    .view, row, .places-treeview {
       background-color: transparent;
       color: $dark_sidebar_fg;
 
@@ -374,24 +433,13 @@ filechooser {
 
     separator { background-color: transparent; }
 
-    scrollbar { @extend %dark_sidebar_scrollbar }
+    scrollbar { @extend %dark_sidebar_scrollbar; }
   }
 }
 
-// filechooser {
-//   actionbar {
-//     color: $dark_sidebar_fg;
-//     background-color: $dark_sidebar_bg;
-//     border-color: $solid_borders_color;
-//
-//     button { @extend %dark_sidebar_button; }
-//     entry { @extend %dark_sidebar_entry; }
-//
-//     @extend %osd_check_radio;
-//
-//     label, combobox { color: $dark_sidebar_fg; }
-//   }
-// }
+.NemoSidebar {
+  &, & * { -gtk-icon-style: symbolic; }
+}
 
 //
 // Gedit
@@ -403,15 +451,6 @@ window.org-gnome-gedit {
   > overlay > box.vertical > paned > separator {
     &, &:backdrop {
       background-image: if($variant == 'light', image($side_theme_bg), image($solid_borders_color));
-    }
-  }
-}
-
-window.fullscreen.org-gnome-gedit,
-window.maximized.org-gnome-gedit {
-  > .titlebar > headerbar:first-child {
-    > box.left.horizontal {
-      @extend %side_max_titlebutton;
     }
   }
 }
@@ -456,7 +495,6 @@ list.gedit-document-panel {
     padding: 0;
     margin: 0 $cont_padding;
     border-radius: 100px;
-    -gtk-outline-radius: 100px;
     border: none;
     background: none;
 
@@ -545,25 +583,12 @@ textview.view.sourceview.gedit-view {
 //
 // Gnome Tweak Tool (Gnome tweaks)
 //
-row#Focus,
-row#ClickMethod,
-row#StaticWorkspaceTweak, // for 3.26.0
-row#dynamic-workspaces,
-row#PrimaryWorkspaceTweak, // for 3.26.0
-row#workspaces-only-on-primary {
+.tweak-group > .tweak > list {
   padding: 0;
   border: 1px solid $borders_color;
 
-  row:not(:last-child) { border-bottom: 1px solid $borders_color; }
-
-  &.tweak > list { margin-top: -3px; }
+  > row:not(:last-child) { border-bottom: 1px solid $borders_color; }
 }
-
-// Add more spaces between title and list
-row#Focus,
-row#ClickMethod,
-row#PrimaryWorkspaceTweak, // for 3.26.0
-row#workspaces-only-on-primary { margin-top: 4px; }
 
 row#AutostartTitle.tweak {
   padding: 3px;
@@ -579,28 +604,17 @@ list#AutostartListBoxTweakGroup {
 // Themed left side headerbar
 .titlebar > headerbar.titlebar.tweak-titlebar-left {
   @extend %side_headerbar;
-
-  .fullscreen &,
-  .maximized & {
-    > box.left.horizontal {
-      @extend %side_max_titlebutton;
-    }
-  }
 }
 
 // Themed left sidebar
-.tweak-categories,
-.tweak-category:not(:selected):not(:hover) {
+list.tweak-categories,
+leaflet > box > scrolledwindow > viewport > list.navigation-sidebar {
   @extend %side_background;
 
-  separator { background: none; }
-}
+  > separator { background: none; }
 
-.tweak-category:not(:selected) {
-  &:hover {
-    color: $side_theme_alt_fg;
-    background-image: image(rgba($side_theme_fg, 0.06));
-    // transition: all 50ms $ease-out-quad;
+  > row.activatable {
+    @extend %side_views;
   }
 }
 
@@ -634,57 +648,40 @@ window.background.csd {
 
   > headerbar.titlebar { // gnome 3.32 or later
     > box.horizontal > headerbar:first-child,
-    > hdyleaflet > headerbar:first-child {
+    > hdyleaflet > headerbar:first-child,
+    > leaflet > headerbar:first-child {
       @extend %side_headerbar;
     }
 
     > box.horizontal > separator.sidebar,
-    > hdyleaflet > separator.sidebar {
+    > hdyleaflet > separator.sidebar,
+    > leaflet > separator.sidebar {
       border-right-style: if($variant == 'light', none, solid);
       background: none;
       min-width: 0;
     }
   }
 
-  &.fullscreen,
-  &.maximized {
-    > box.titlebar.horizontal {
-      > headerbar:first-child {
-        > box.left.horizontal {
-          @extend %side_max_titlebutton;
-        }
-      }
-    }
-
-    > headerbar.titlebar { // gnome 3.32
-      > box.horizontal > headerbar:first-child,
-      > hdyleaflet > headerbar:first-child {
-        > box.left.horizontal {
-          @extend %side_max_titlebutton;
-        }
-      }
-    }
-  }
-
   > box.horizontal > box.vertical,
-  > hdyleaflet > box.vertical { // gnome 3.32
+  > hdyleaflet > box.vertical, // gnome 3.32
+  > leaflet > box.vertical { // gnome 3.38
     > scrolledwindow.view {
       @extend %side_background;
 
       > viewport.frame > stack {
          list {
-          @extend %side_background;
+          background: none;
 
           separator { background: none; }
 
           row.activatable:not(:hover):not(:selected) {
-            background-image: image($side_theme_bg);
+            background: none;
           }
 
           row.activatable:not(:selected):hover {
             color: $side_theme_alt_fg;
             background-color: rgba($side_theme_fg, 0.06);
-            // transition: all 50ms $ease-out-quad;
+            transition: all 50ms $ease-out-quad;
           }
         }
 
@@ -713,7 +710,8 @@ window.background.csd {
   }
 
   > box.horizontal > separator.sidebar,
-  > hdyleaflet > separator.sidebar {
+  > hdyleaflet > separator.sidebar,
+  > leaflet > separator.sidebar {
     border-right-style: if($variant == 'light', none, solid);
     background: none;
     min-width: 0;
@@ -735,7 +733,7 @@ window.background.csd {
 
     &:selected {
       &, &:focus {
-        background-color: rgba($selected_bg_color, 0.25);
+        background-color: mix($selected_bg_color, darken($side_theme_bg, 3%), 25%);
         color: $selected_fg_color;
         &:dir(ltr) { box-shadow: inset 2px 0 $selected_bg_color; }
         &:dir(rtl) { box-shadow: inset -2px 0 $selected_bg_color; }
@@ -758,7 +756,8 @@ window.background.csd {
   }
 }
 
-window#GearyMainWindow, window.geary-main-window {
+window#GearyMainWindow,
+window.geary-main-window {
   .titlebar {
     box-shadow: inset 0 -1px $borders_color;
     background-color: $header_bg;
@@ -786,7 +785,7 @@ window#GearyMainWindow, window.geary-main-window {
 
   > overlay > box.vertical > paned.horizontal { // Geary 0.13.1
     > box.sidebar.vertical {
-      @extend %side_headerbar;
+      @extend %side_background;
 
       > searchbar {
         @extend %side_searchbar;
@@ -796,8 +795,6 @@ window#GearyMainWindow, window.geary-main-window {
 }
 
 .geary-titlebar-left {
-  // margin-right: $cont_padding;
-
   &, &.geary-titlebar {
     @extend %side_headerbar;
   }
@@ -807,17 +804,6 @@ window#GearyMainWindow, window.geary-main-window {
     margin: 0 -10px 0 0;
     border-right: if($variant == 'light', none, 1px solid $solid_borders_color);
     background: none;
-  }
-}
-
-window#GearyMainWindow.fullscreen,
-window#GearyMainWindow.maximized {
-  .geary-titlebar-left {
-    &, &.geary-titlebar {
-      > box.left.horizontal {
-        @extend %side_max_titlebutton;
-      }
-    }
   }
 }
 
@@ -848,19 +834,102 @@ window#GearyMainWindow.maximized {
   }
 
   separator { background: none; }
-  statusbar { @extend %side_background; }
+
+  statusbar {
+    @extend %side_background;
+  }
 }
 
 // right-pane styling (current)
 stack#conversation_viewer {
-  scrolledwindow.geary-conversation-scroller > viewport.frame {
+  > grid.vertical > scrolledwindow.geary-conversation-scroller > viewport.frame {
     border: none; // unset borders
+
+    > list.background.conversation-listbox { background-color: $base_color; }
   }
 }
 
 .geary-accounts-editor-pane {
   > scrolledwindow.frame {
     border: none;
+  }
+}
+
+.geary-main-window { // 40.0
+  > headerbar > leaflet > leaflet > headerbar:not(:last-child) {
+    @extend %side_headerbar;
+  }
+
+  .geary-main-layout {
+    > leaflet, & {
+      > separator.sidebar {
+        background-image: image($header_bg);
+
+        @if $titlebar == 'light' {
+          border-bottom: 1px solid $borders_color;
+        }
+      }
+    }
+
+    > leaflet > leaflet > box { // 40.0
+      .geary-conversation-frame { // center
+        margin: -1px 0;
+
+        treeview.view {
+          &:hover { background-color: mix($fg_color, $base_color, 15%); }
+
+          &:selected {
+            &, &:focus {
+              background-color: mix($selected_bg_color, $base_color, 25%);
+              color: $fg_color;
+              &:dir(ltr) { box-shadow: inset -2px 0 $selected_bg_color; }
+              &:dir(rtl) { box-shadow: inset 2px 0 $selected_bg_color; }
+            }
+          }
+        }
+      }
+
+      .geary-folder-frame { // left
+        @extend %side_background;
+        > border { @extend  %folder_frame_border; }
+        > scrolledwindow { @extend %folder_frame; }
+      }
+
+      separator { background: none; }
+
+      statusbar {
+        @extend %side_background;
+        margin: -8px -12px;
+        padding: 6px;
+      }
+    }
+  }
+
+  list.content.conversation-listbox { border: none; } // reset
+
+  geary-conversation-viewer#conversation_viewer { // right side
+    list.background.conversation-listbox.content {
+      > row.activatable {
+        background-color: $base_color;
+        border: 1px solid $borders_color;
+        border-bottom-width: 0;
+
+        &:first-child {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+      }
+    }
+  }
+}
+
+.geary-main-layout > leaflet > leaflet { // 43.0
+  > box.vertical:first-child > headerbar.titlebar {
+    @extend %side_headerbar;
+  }
+
+  treeview.view.sidebar {
+    @extend %side_views;
   }
 }
 
@@ -937,7 +1006,10 @@ overlay > infobar.info.top {
 //
 
 // box.horizontal, // gnome 3.30
-hdyleaflet {
+hdyleaflet, // > 3.32
+leaflet.unfolded {  // > 3.38
+  > headerbar:first-child { @extend %side_headerbar; }
+
   > stack > frame > grid.vertical {
     @extend %side_background;
 
@@ -1005,7 +1077,6 @@ hdyleaflet {
       box-shadow: none;
       padding-left: 10px;
       padding-right: 10px;
-      GtkArrow { -GtkArrow-arrow-scaling: 1; }
 
       .arrow {
         -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
@@ -1049,12 +1120,60 @@ hdyleaflet {
         background-color: transparent;
       }
     }
+  }
+}
 
-    @extend %side_titlebutton;
+//
+// Fractal
+//
+hdyleaflet {
+  > headerbar:first-child {
+    @extend %side_headerbar;
+  }
 
-    .fullscreen &,
-    .maximized & {
-      @extend %side_max_titlebutton;
+  > box.vertical {
+    > searchbar {
+      @extend %side_searchbar;
+    }
+
+    > scrolledwindow > viewport {
+      .sidebar {
+        @extend %side_background;
+
+        list > row.activatable {
+          @extend %side_views;
+        }
+
+        .room-title {
+          &, image { color: $side_theme_fg; }
+
+          &:hover, &:active { color: $side_theme_alt_fg; }
+        }
+
+        label {
+          color: $side_theme_fg;
+
+          &:disabled { color: rgba($side_theme_alt_fg, 0.35); }
+        }
+      }
+    }
+  }
+}
+
+//
+// Password and Keys
+//
+
+window > hdyleaflet, window > leaflet {
+  > scrolledwindow > viewport.frame > list {
+    @extend %side_background;
+
+    > row.activatable {
+      @extend %side_views;
+
+      .seahorse-sidebar-item { -gtk-icon-style: symbolic; }
+
+      button { @extend %selected-button; }
     }
   }
 }

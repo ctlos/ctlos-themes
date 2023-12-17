@@ -66,28 +66,28 @@ style "panelbuttons" {
       function = BOX
       state    = NORMAL
       file     = "assets/null.png"
-      border   = { 0, 2, 0, 0 }
+      border   = { 0, 0, 0, 2 }
       stretch  = TRUE
     }
     image {
       function = BOX
       state    = ACTIVE
       file     = "assets/pathbar_button_active.png"
-      border   = { 0, 2, 0, 0 }
+      border   = { 0, 0, 0, 2 }
       stretch  = TRUE
     }
     image {
       function = BOX
       state    = PRELIGHT
       file     = "assets/pathbar_button_prelight.png"
-      border   = { 0, 2, 0, 0 }
+      border   = { 0, 0, 0, 2 }
       stretch  = TRUE
     }
     image {
       function = BOX
       state    = INSENSITIVE
       file     = "assets/null.png"
-      border   = { 0, 2, 0, 0 }
+      border   = { 0, 0, 0, 2 }
       stretch  = TRUE
     }
   }
@@ -173,7 +173,7 @@ class "PanelToplevel*"                                style "theme-panel"
 widget_class "*PanelToplevel*"                        style "theme-panel"
 widget_class "*notif*"                                style "theme-panel"
 widget_class "*Notif*"                                style "theme-panel"
-widget_class "*Tray*"                                 style "theme-panel"
+widget_class "*Tray*"                                 style "theme-panel" 
 widget_class "*tray*"                                 style "theme-panel"
 widget_class "*computertemp*"                         style "theme-panel"
 widget_class "*Applet*Tomboy*"                        style "theme-panel"

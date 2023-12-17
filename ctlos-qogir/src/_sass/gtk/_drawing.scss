@@ -1,19 +1,4 @@
 // Animations
-
-@keyframes header_ripple_effect {
-  from {
-    background-image: radial-gradient(circle farthest-corner at center,
-                                      $header_bg 0%,
-                                      transparent 0%);
-  }
-
-  to {
-    background-image: radial-gradient(circle farthest-corner at center,
-                                      $header_bg 100%,
-                                      transparent 0%);
-  }
-}
-
 @keyframes ripple_effect {
   from {
     background-image: radial-gradient(circle farthest-corner at center,
@@ -29,6 +14,15 @@
 }
 
 // Drawing mixins
+
+@mixin focus-ring($target: null, $width: 1px, $offset: -3px, $focus-state: ':focus:focus-visible') {
+  &#{$focus-state} #{$target} {
+    outline-color: gtkalpha(currentcolor, 0.3);
+    outline-offset: $offset;
+    outline-style: dashed;
+    outline-width: $width;
+  }
+}
 
 // Solid color image
 @function _solid($c) {
@@ -51,6 +45,8 @@
     color: $text_color;
     border-color: $entry_border;
     background-color: $entry_bg;
+    outline: none;
+    box-shadow: none;
   }
 
   @if $t==focus {
@@ -60,6 +56,8 @@
     color: $text_color;
     border-color: $selected_bg_color;
     background-color: $entry_bg;
+    outline: none;
+    box-shadow: none;
   }
 
   @if $t==insensitive {
@@ -87,6 +85,8 @@
   //
   // focused header-bar entry
   //
+    outline: none;
+    box-shadow: none;
     color: lighten($header_fg, 20%);
     border-color: $selected_bg_color;
     background-color: if($variant=='light', lighten($header_entry_bg, 2%), lighten($header_entry_bg, 5%));
@@ -99,6 +99,7 @@
     color: transparentize($header_fg, 0.45);
     border-color: $header_entry_border;
     background-color: transparentize($header_entry_bg, 0.15);
+    opacity: 1;
   }
 
   @else if $t==osd {
@@ -119,6 +120,8 @@
     color: $selected_fg_color;
     border-color: $osd_entry_border;
     background-color: $selected_bg_color;
+    outline: none;
+    box-shadow: none;
   }
 
   @else if $t==osd-insensitive {
@@ -127,6 +130,7 @@
   //
     color: transparentize($osd_fg_color, 0.45);
     background-color: transparentize($osd_entry_bg, 0.15);
+    opacity: 1;
   }
 }
 
@@ -155,6 +159,7 @@
     color: darken($fg_color, 15%);
     border-color: if($variant=='light', darken($button_border, 5%), lighten($button_border, 5%));
     background-color: lighten($button_bg, 8%);
+    box-shadow: none;
   }
 
   @else if $t==active {
@@ -164,13 +169,17 @@
     color: $selected_fg_color;
     border-color: if($variant == 'light', $sec_selected_bg_color, $alt_selected_bg_color);
     background-color: $selected_bg_color;
+    box-shadow: none;
   }
 
   @else if $t==insensitive {
   //
   // insensitive button
   //
-    label, & { color: $insensitive_fg_color; }
+    label, & {
+      color: $insensitive_fg_color;
+      opacity: 1;
+    }
 
     border-color: $alt_borders_color;
     background-color: transparentize($button_bg, 0.45);
@@ -184,7 +193,6 @@
 
     border-color: transparentize($selected_bg_color, 0.25);
     background-color: transparentize($selected_bg_color, 0.25);
-
     opacity: 0.6;
   }
 
@@ -220,7 +228,10 @@
   //
   // insensitive header-bar button
   //
-    label, & { color: transparentize($header_fg, 0.5); }
+    label, & {
+      color: transparentize($header_fg, 0.5);
+      opacity: 1;
+    }
 
     background-color: transparentize($header_bg, 1);
     border-color: transparentize($header_bg, 1);
@@ -248,9 +259,9 @@
   //
   // active osd button
   //
-    color: $osd_fg_color;
+    color: $selected_bg_color;
     border-color: $osd_button_border;
-    background-color: opacify(lighten($osd_button_bg, 7%), 0.1);
+    background-color: lighten($osd_button_bg, 5%);
   }
 
   @else if $t==osd-active {
@@ -260,12 +271,14 @@
     color: $selected_fg_color;
     border-color: $selected_bg_color;
     background-color: $selected_bg_color;
+    background-clip: border-box;
   }
 
   @else if $t==osd-insensitive {
   //
   // insensitive osd button
   //
+    opacity: 1;
     color: $osd_insensitive_fg_color;
     border-color: $osd_button_border;
     background-color: transparentize($osd_button_bg, 0.15);
@@ -295,42 +308,62 @@
 //
 // Overshoot
 //
-@mixin overshoot($p, $c:$selected_bg_color) {
+@mixin overshoot($p, $t:normal, $c:$fg_color) {
+//
+// overshoot
+//
 // $p: position
+// $t: type
 // $c: base color
 //
 // possible $p values:
 // top, bottom, right, left
 //
+// possible $t values:
+// normal, backdrop
+//
 
-  $_big_gradient_length: 60%;
+  $_small_gradient_length: 3%;
+  $_big_gradient_length: 50%;
 
-  $_position: center top;
+  $_small_gradient_size: 100% $_small_gradient_length;
   $_big_gradient_size: 100% $_big_gradient_length;
 
-  @if $p==bottom {
-    $_position: center bottom;
-  }
-
-  @else if $p==right {
-    $_position: right center;
+  @if $p==right or $p==left {
+    $_small_gradient_size: $_small_gradient_length 100%;
     $_big_gradient_size: $_big_gradient_length 100%;
   }
 
-  @else if $p==left {
-    $_position: left center;
-    $_big_gradient_size: $_big_gradient_length 100%;
+  $_small_gradient_color: $c;
+  $_big_gradient_color: transparentize($c, 0.93);
+
+  @if $c==$fg_color {
+    $_small_gradient_color: darken($borders_color, 10%);
+    $_big_gradient_color: transparentize($fg_color, 0.93);
+
+    @if $t==backdrop { $_small_gradient_color: $backdrop_borders_color; }
   }
 
-  background-image: -gtk-gradient(radial,
-                                  $_position, 0,
-                                  $_position, 0.6,
-                                  from(transparentize($c, 0.8)),
-                                  to(transparentize($c, 1)));
+  $_small_gradient: radial-gradient(farthest-side at $p,
+                                    $_small_gradient_color 85%,
+                                    transparentize($_small_gradient_color, 1));
 
-  background-size: $_big_gradient_size;
+  $_big_gradient: radial-gradient(farthest-side at $p,
+                                  $_big_gradient_color,
+                                  transparentize($_big_gradient_color, 1));
+
+  @if $t==normal {
+    background-image: $_small_gradient, $_big_gradient;
+    background-size: $_small_gradient_size, $_big_gradient_size;
+  }
+
+  @else if $t==backdrop {
+    background-image: $_small_gradient;
+    background-size: $_small_gradient_size;
+  }
+
   background-repeat: no-repeat;
-  background-position: $_position;
+  background-position: $p;
 
   background-color: transparent; // reset some properties to be sure to not inherit them somehow
   border: none;                  //
@@ -374,4 +407,75 @@
   background-origin: content-box;
   background-position: $_bg_pos;
   border: none;
+  box-shadow: none;
+}
+
+@mixin undershoot-indication($p, $c: $undershoot_shade_color, $neighbor: false, $style: default) {
+//
+// undershoot
+//
+// $p: position
+// $c: shade color
+// $neighbor: use ~ instead of >
+//
+// possible $p values:
+// top, bottom, right, left
+//
+
+  $_border_pos: '';
+  $_direction: '';
+  $_selector: if($neighbor, '~', '>');
+
+  @if $p==top {
+    $_direction: bottom;
+    $_border_pos: 0 1px;
+  } @else if $p==bottom {
+    $_direction: top;
+    $_border_pos: 0 -1px;
+  } @else if $p==left {
+    $_direction: right;
+    $_border_pos: 1px 0;
+  } @else if $p==right {
+    $_direction: left;
+    $_border_pos: -1px 0;
+  } @else {
+    @error "Unknown position #{$p}"
+  }
+
+  #{$_selector} undershoot.#{$p} {
+    box-shadow: if($style == 'compact', none, inset $_border_pos $borders_color);
+    background: linear-gradient(to $_direction, gtkalpha($c, .25), transparent 6px);
+  }
+}
+    
+@mixin background-shadow($direction, $color) {
+  background-image:
+    linear-gradient($direction,
+                    gtkalpha($color, 0.7),
+                    gtkalpha($color, 0.14) 40px,
+                    gtkalpha($color, 0) 56px),
+    linear-gradient($direction,
+                    gtkalpha($color, 0.4),
+                    gtkalpha($color, 0.14) 7px,
+                    gtkalpha($color, 0) 24px);
+}
+
+@mixin transition-shadows($color) {
+  > dimming {
+    background: $color;
+  }
+
+  > border {
+    background: none;
+  }
+
+  > shadow {
+    min-width: 56px;
+    min-height: 56px;
+
+    &.left  { @include background-shadow(to right,  $color); }
+    &.right { @include background-shadow(to left,   $color); }
+    &.up    { @include background-shadow(to bottom, $color); }
+    &.down  { @include background-shadow(to top,    $color); }
+  }
 }
