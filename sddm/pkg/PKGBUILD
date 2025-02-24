@@ -1,4 +1,4 @@
-# Maintainer: Alex Creio <ctlos@protonmail.com>
+# Maintainer: Alex Creio <mailcreio at gmail>
 srcname=ctlos-themes
 pkgname=ctlos-sddm-themes
 pkgver=1.2.1
@@ -14,6 +14,6 @@ sha256sums=('SKIP')
 
 package() {
   cd ${srcdir}/${srcname}/sddm
-  mkdir -p "${pkgdir}/usr/share/sddm/themes"
+  install -d "${pkgdir}/usr/share/sddm/themes"
   cp -rf {darkine,slice} "${pkgdir}/usr/share/sddm/themes"
 }

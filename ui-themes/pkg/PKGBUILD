@@ -1,4 +1,4 @@
-# Maintainer: Alex Creio <ctlos@protonmail.com>
+# Maintainer: Alex Creio <mailcreio at gmail>
 srcname=ctlos-themes
 pkgname=ui-themes
 pkgver=1.2
@@ -14,7 +14,7 @@ source=("git+${url}.git")
 sha256sums=('SKIP')
 
 package() {
-  cd ${srcdir}/${srcname}/ui-themes
-  mkdir -p "${pkgdir}/usr/share/themes"
+  cd ${srcdir}/${srcname}/${pkgname}
+  install -d "${pkgdir}/usr/share/themes"
   cp -rf *ui "${pkgdir}/usr/share/themes"
 }
