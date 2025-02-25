@@ -31,6 +31,7 @@
   &:rtl > StBoxLayout { padding-right: $cont_padding * 2.5; }
 
   .quick-toggle-label { font-weight: bold; }
+  .quick-toggle-icon { icon-size: $base_icon_size; }
 }
 
 .quick-menu-toggle {
@@ -40,6 +41,7 @@
   .quick-toggle-arrow {
     background-color: rgba($fg_color, 0.06) !important;
     padding: $cont_padding $cont_padding * 1;
+    icon-size: 16px;
 
     &:active, &:checked {
       background-color: rgba($fg_color, 0.12) !important;

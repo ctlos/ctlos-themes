@@ -25,6 +25,10 @@ Fedora/RedHat distros:
 
     dnf install gtk-murrine-engine gtk2-engines
 
+openSUSE/SUSE distros:
+
+    zypper in gtk2-engine-murrine gtk2-engines
+
 Ubuntu/Mint/Debian distros:
 
     sudo apt-get install gtk2-engines-murrine gtk2-engines-pixbuf
@@ -127,6 +131,29 @@ cd Qogir-theme
 bash install.sh
 ```
 
+### Install on AUR
+```sh
+sudo pamac install qogir-gtk-theme
+```
+[AUR](https://aur.archlinux.org/packages/qogir-gtk-theme/)
+
+## Recommendations
+
+### 1. Kde theme
+[Qogir-kde](https://github.com/vinceliuice/Qogir-kde)
+
+### 2. QT 5/6 theme
+[Qogir-qt](https://github.com/pijulius/qogir-adwaita-qt)
+
+### 3. Fluxbox theme
+[Qogir-fluxbox](https://github.com/pijulius/fluxbox-themes)
+
+### 4. Rofi theme
+[Qogir-rofi](https://github.com/pijulius/rofi-qogir)
+
+### 5. Icon theme
+[Qogir](https://github.com/vinceliuice/Qogir-icon-theme)
+
 ## Nautilus logos
 ```sh
 ./install.sh -i [LOGO NAME...] (Install themes with selected nautilus logo)
@@ -138,15 +165,6 @@ bash install.sh
 [Install Firefox theme](src/firefox)
 
 ![firefox-theme](src/firefox/preview.png?raw=true)
-
-### AUR
-[AUR](https://aur.archlinux.org/packages/qogir-gtk-theme/)
-
-### Kde theme
-[Qogir-kde](https://github.com/vinceliuice/Qogir-kde)
-
-### Icon theme
-[Qogir](https://github.com/vinceliuice/Qogir-icon-theme)
 
 ## Screenshots
 ![2](https://github.com/vinceliuice/Qogir-theme/blob/images/screenshots/screenshot02.png?raw=true)

@@ -7,7 +7,7 @@
 
 :root {
 	--gnome-selected-color: #ffffff;
-	--gnome-selected-background: #5294e2;
+	--gnome-selected-background: #5a74ca;
 
 	/* Browser area before a page starts loading */
 	--gnome-browser-before-load-background: #fafbfc;
@@ -45,9 +45,9 @@
 	--gnome-button-border-accent-color: #D9D9D9;
 	--gnome-button-box-shadow: inset 0 1px white;
 	--gnome-button-hover-background: #f6f5f4;
-	--gnome-button-active-background: #5294e2;
-	--gnome-button-active-border-color: #2679DB;
-	--gnome-button-active-border-accent-color: #2679DB;
+	--gnome-button-active-background: #5a74ca;
+	--gnome-button-active-border-color: #5a74ca;
+	--gnome-button-active-border-accent-color: #5a74ca;
 	--gnome-button-active-box-shadow: 0 1px rgba(255, 255, 255, 0) inset;
 	--gnome-button-disabled-background: #faf9f8;
 	--gnome-button-disabled-border-color: #cdc7c2;
@@ -91,7 +91,7 @@
 	--gnome-inactive-entry-border-color: #dddddd;
 	--gnome-inactive-entry-box-shadow: none;
 	--gnome-inactive-entry-color: #565656;
-	--gnome-focused-urlbar-border-color: #5294e2;
+	--gnome-focused-urlbar-border-color: #5a74ca;
 	--gnome-private-urlbar-background: #e6c2ff;
 
 	/* Switch */
@@ -111,8 +111,8 @@
 	--gnome-tabbar-tab-hover-color: rgb(93, 98, 99);
 	--gnome-tabbar-tab-active-background: rgba(46, 52, 54, 0.06);
 	--gnome-tabbar-tab-active-background-contrast: transparent;
-	--gnome-tabbar-tab-active-border-bottom-color: #5294e2;
-	--gnome-tabbar-tab-active-border-bottom-color-contrast: #5294e2;
+	--gnome-tabbar-tab-active-border-bottom-color: #5a74ca;
+	--gnome-tabbar-tab-active-border-bottom-color-contrast: #5a74ca;
 	--gnome-tabbar-tab-active-color: rgb(46, 52, 54);
 	--gnome-tabbar-tab-active-hover-background: rgba(46, 52, 54, 0.08);
 	--gnome-inactive-tabbar-tab-color: #8b8e8f;

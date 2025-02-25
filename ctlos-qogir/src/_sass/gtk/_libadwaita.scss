@@ -804,6 +804,8 @@ toolbarview.undershoot-bottom scrolledwindow {
 // Sidebar
 .unfolded stacksidebar.sidebar { border: none; }
 
+$side_border: rgba($side_theme_fg, 0.12);
+
 .sidebar-pane {
   color: $side_theme_fg;
   background-color: $side_theme_bg;
@@ -823,19 +825,23 @@ toolbarview.undershoot-bottom scrolledwindow {
   }
 
   headerbar {
-    color: $side_theme_fg;
+    color: $side_theme_alt_fg;
 
     button:not(.suggested-action):not(.destructive-action) {
-      color: $side_theme_fg;
+      color: $side_theme_alt_fg;
       border: none;
   
       &:hover {
-        color: $side_theme_alt_fg;
+        color: $side_theme_fg;
         background-color: rgba($side_theme_fg, 0.25);
       }
   
       &:active, &:checked {
         @include button(active);
+      }
+
+      &:disabled {
+        color: rgba($side_theme_fg, 0.45);
       }
     }
   }
@@ -844,17 +850,7 @@ toolbarview.undershoot-bottom scrolledwindow {
     > separator { background: none; }
 
     > row {
-      color: $side_theme_alt_fg;
-
-      &:hover:not(:selected):not(:focus-within) {
-        color: $side_theme_fg;
-        background-color: rgba($side_theme_fg, 0.06);
-        transition: none;
-      }
-
-      &:active, &:active:hover, &:checked {
-        background-color: rgba($side_theme_fg, 0.1);
-      }
+      @extend %side_views;
     }
   }
 
@@ -866,31 +862,39 @@ toolbarview.undershoot-bottom scrolledwindow {
     @extend %side_searchbar;
   }
 
+  popover {
+    modelbutton.flat {
+      &:disabled, &:disabled label {
+        color: $insensitive_fg_color;
+      }
+    }
+  }
+
   toolbarview.undershoot-top scrolledwindow {
-    @include undershoot-indication(top);
+    @include undershoot-indication(top, $bc: $side_border, $style: 'solid');
   }
 
   toolbarview.undershoot-bottom scrolledwindow {
-    @include undershoot-indication(bottom);
+    @include undershoot-indication(bottom, $bc: $side_border, $style: 'solid');
   }
 
   scrolledwindow {
     &.undershoot-top {
-      @include undershoot-indication(top);
+      @include undershoot-indication(top, $bc: $side_border, $style: 'solid');
     }
 
     &.undershoot-bottom {
-      @include undershoot-indication(bottom)
+      @include undershoot-indication(bottom, $bc: $side_border, $style: 'solid');
     }
 
     &.undershoot-start {
-      &:dir(ltr) { @include undershoot-indication(left); }
-      &:dir(rtl) { @include undershoot-indication(right); }
+      &:dir(ltr) { @include undershoot-indication(left, $bc: $side_border, $style: 'solid'); }
+      &:dir(rtl) { @include undershoot-indication(right, $bc: $side_border, $style: 'solid'); }
     }
 
     &.undershoot-end {
-      &:dir(ltr) { @include undershoot-indication(right); }
-      &:dir(rtl) { @include undershoot-indication(left); }
+      &:dir(ltr) { @include undershoot-indication(right, $bc: $side_border, $style: 'solid'); }
+      &:dir(rtl) { @include undershoot-indication(left, $bc: $side_border, $style: 'solid'); }
     }
   }
 
@@ -902,11 +906,11 @@ toolbarview.undershoot-bottom scrolledwindow {
   }
 
   banner > revealer > widget {
-    background-color: gtkmix($selected_bg_color, $side_theme_bg, 30%);
+    background-color: mix($selected_bg_color, $side_theme_bg, 30%);
     color: $text_color;
 
     &:backdrop {
-      background-color: gtkmix($selected_bg_color, $side_theme_bg, 30%);
+      background-color: mix($selected_bg_color, $side_theme_bg, 30%);
     }
   }
 
@@ -932,36 +936,8 @@ toolbarview.undershoot-bottom scrolledwindow {
   color: $text_color;
 
   &:backdrop {
-    background-color: $background;
+    background-color: $bg_color;
     transition: background-color $longer_duration $deceleration_curve;
-  }
-
-  toolbarview.undershoot-top scrolledwindow {
-    @include undershoot-indication(top);
-  }
-
-  toolbarview.undershoot-bottom scrolledwindow {
-    @include undershoot-indication(bottom);
-  }
-
-  scrolledwindow {
-    &.undershoot-top {
-      @include undershoot-indication(top);
-    }
-
-    &.undershoot-bottom {
-      @include undershoot-indication(bottom)
-    }
-
-    &.undershoot-start {
-      &:dir(ltr) { @include undershoot-indication(left); }
-      &:dir(rtl) { @include undershoot-indication(right); }
-    }
-
-    &.undershoot-end {
-      &:dir(ltr) { @include undershoot-indication(right); }
-      &:dir(rtl) { @include undershoot-indication(left); }
-    }
   }
 
   flap,
@@ -972,11 +948,11 @@ toolbarview.undershoot-bottom scrolledwindow {
   }
 
   banner > revealer > widget {
-    background-color: gtkmix($selected_bg_color, $base_color, 30%);
+    background-color: mix($selected_bg_color, $base_color, 30%);
     color: $text_color;
 
     &:backdrop {
-      background-color: gtkmix($selected_bg_color, $base_color, 30%);
+      background-color: mix($selected_bg_color, $base_color, 30%);
     }
   }
 
@@ -991,6 +967,38 @@ toolbarview.undershoot-bottom scrolledwindow {
     &, banner > revealer > widget {
       box-shadow: none;
       border-left: 1px solid $borders_color;
+    }
+  }
+}
+
+.content-pane .sidebar-pane,
+.sidebar-pane .content-pane,
+.content-pane {
+  toolbarview.undershoot-top scrolledwindow {
+    @include undershoot-indication(top, $style: 'solid');
+  }
+
+  toolbarview.undershoot-bottom scrolledwindow {
+    @include undershoot-indication(bottom, $style: 'solid');
+  }
+
+  scrolledwindow {
+    &.undershoot-top {
+      @include undershoot-indication(top, $style: 'solid');
+    }
+
+    &.undershoot-bottom {
+      @include undershoot-indication(bottom, $style: 'solid');
+    }
+
+    &.undershoot-start {
+      &:dir(ltr) { @include undershoot-indication(left, $style: 'solid'); }
+      &:dir(rtl) { @include undershoot-indication(right, $style: 'solid'); }
+    }
+
+    &.undershoot-end {
+      &:dir(ltr) { @include undershoot-indication(right, $style: 'solid'); }
+      &:dir(rtl) { @include undershoot-indication(left, $style: 'solid'); }
     }
   }
 }
@@ -1065,5 +1073,213 @@ preferencesgroup > box {
     &:checked {
       outline-color: $selected_bg_color;
     }
+  }
+}
+
+
+themeselector, // EditorThemeSelector
+panelthemeselector { // BuilderThemeSelector
+  margin: 9px;
+
+  checkbutton {
+    padding: 1px;
+    min-height: 44px;
+    min-width: 44px;
+    background-clip: content-box;
+    border-radius: $circular_radius;
+    box-shadow: inset 0 0 0 1px $borders_color;
+
+    radio {
+      min-height: 16px;
+      min-width: 16px;
+      transform: translate(27px, 14px);
+      padding: 3px;
+
+      &, &:hover, &:disabled {
+        -gtk-icon-source: none;
+        border: none;
+        background: none;
+        box-shadow: none;
+      }
+
+      &:checked, &:checked:hover, &:active, &:active:hover {
+        -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+        background-image: image($selected_bg_color);
+        background-color: $selected_bg_color;
+        color: $selected_fg_color;
+      }
+    }
+
+    &.follow:checked,
+    &.light:checked,
+    &.dark:checked {
+      box-shadow: inset 0 0 0 2px $selected_bg_color;
+    }
+
+    &.light {
+      background-color: #ffffff;
+    }
+
+    &.dark {
+      background-color: #202020;
+    }
+
+    &.follow {
+      background-image: linear-gradient(to bottom right, #fff 49.99%, #202020 50.01%);
+    }
+  }
+}
+
+// Gnome Console themeswitcher
+themeswitcher {
+  padding: 6px;
+
+  .check {
+    min-height: 16px;
+    min-width: 16px;
+    background-color: $selected_bg_color;
+    color: $selected_fg_color;
+    padding: 2px;
+    border-radius: $circular_radius;
+    margin: 3px;
+    -gtk-icon-size: 20px;
+    -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/scalable/check-symbolic.svg")),
+                                  -gtk-recolor(url("assets/scalable/check-symbolic@2.svg")));
+
+    &:hover {
+      background-color: lighten($selected_bg_color, 10%);
+      color: $selected_fg_color;
+    }
+
+    &:active {
+      background-color: $selected_bg_color;
+      color: $selected_fg_color;
+    }
+  }
+
+  checkbutton {
+    radio {
+      padding: 0;
+      margin: 2px;
+      min-height: 48px;
+      min-width: 48px;
+
+      &, &:active, &:hover {
+        outline-color: $borders_color;
+        outline-width: 1px;
+        outline-offset: -1px;
+        outline-style: solid;
+        box-shadow: none;
+      }
+
+      &, &:hover, &:active, &:checked, &:checked:hover {
+        -gtk-icon-source: none;
+        transition: none;
+        border: none;
+      }
+    }
+
+    radio:checked, radio:active {
+      &, &:hover {
+        box-shadow: inset 0 0 0 2px $selected_bg_color;
+      }
+    }
+
+    &.system radio {
+      &, &:hover, &:active, &:checked, &:checked:hover {
+        background-image: linear-gradient(-45deg, #242424 49.99%, white 50.01%);
+        background-color: transparent;
+      }
+    }
+
+    &.light radio {
+      &, &:hover, &:active, &:checked, &:checked:hover {
+        color: rgba(black, 0.8);
+        background-color: white;
+      }
+    }
+
+    &.dark radio {
+      &, &:hover, &:active, &:checked, &:checked:hover {
+        color: white;
+        background-image: image(#242424);
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+//
+// AdwBanner
+//
+
+ banner > revealer > widget {
+  /* There are 2 more instances in _sidebars.css, keep in sync with that */
+  background-color: rgba($selected_bg_color, 0.3);
+  color: $fg_color;
+  padding: 6px;
+
+  &:backdrop {
+    background-color: rgba($selected_bg_color, 0.15);
+
+    > label, > button {
+      filter: opacity(.5);
+    }
+  }
+}
+
+//
+// AdwDialog
+//
+
+floating-sheet {
+  > dimming {
+    background-color: rgba(black, 0.25);
+  }
+
+  > sheet {
+    border-radius: $corner_radius;
+    outline: none;
+    box-shadow: 0 3px 5px 0 if($variant == 'light', rgba(black, 0.15), rgba(black, 0.12)),
+                0 8px 8px 0 if($variant == 'light', rgba(black, 0.15), rgba(black, 0.12)),
+                0 0 0 1px $borders_color;
+  }
+}
+
+dialog.bottom-sheet {
+  &.landscape sheet {
+    margin-left: 30px;
+    margin-right: 30px;
+
+    > outline {
+      &.flush-left, &.flush-right, &.flush-left.flush-right {
+        box-shadow: 0 0 0 1px $borders_color;
+      }
+    }
+  }
+}
+
+dialog-host > dialog.background {
+  background: none;
+
+  sheet {
+    background-color: $bg_color;
+    color: $fg_color;
+  }
+}
+
+dialog-host > dialog.view {
+  background: none;
+
+  sheet {
+    @extend %view;
+  }
+}
+
+dialog-host > dialog.osd:not(progressbar):not(button):not(menubutton):not(splitbutton) {
+  background: none;
+
+  sheet {
+    @extend %osd;
   }
 }

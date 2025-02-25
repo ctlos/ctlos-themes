@@ -78,18 +78,21 @@ button.gtkstyle-fallback:active, button.gtkstyle-fallback:checked {
 }
 
 .view,
-window.thunar notebook scrolledwindow.frame.standard-view .view,
-iconview,
-textview text {
+window.thunar notebook scrolledwindow.frame.standard-view .view:not(.rubberband),
+iconview {
   color: #17181A;
   background-color: #ffffff;
 }
 
 .view:hover,
-window.thunar notebook scrolledwindow.frame.standard-view .view:hover,
-iconview:hover,
-textview text:hover {
+window.thunar notebook scrolledwindow.frame.standard-view .view:hover:not(.rubberband),
+iconview:hover {
   background-color: rgba(0, 0, 0, 0.08);
+}
+
+textview text {
+  color: #17181A;
+  background-color: #ffffff;
 }
 
 textview border {
@@ -1807,13 +1810,25 @@ headerbar:not(.csd).default-decoration > button.titlebutton {
   margin: 0 3px;
 }
 
-headerbar.default-decoration, headerbar.default-decoration:backdrop {
+headerbar.default-decoration {
   background-color: #ffffff;
   border-bottom-width: 0;
   box-shadow: none;
 }
 
-.tiled headerbar.default-decoration, .maximized headerbar.default-decoration, .fullscreen headerbar.default-decoration, .tiled headerbar.default-decoration:backdrop, .maximized headerbar.default-decoration:backdrop, .fullscreen headerbar.default-decoration:backdrop {
+headerbar.default-decoration:backdrop {
+  background-color: #ffffff;
+}
+
+headerbar.default-decoration > button.titlebutton {
+  border: none;
+  min-height: 24px;
+  min-width: 24px;
+  padding: 0;
+  margin: 0 3px;
+}
+
+.tiled headerbar.default-decoration, .maximized headerbar.default-decoration, .fullscreen headerbar.default-decoration {
   box-shadow: none;
 }
 
@@ -3901,7 +3916,7 @@ row:selected progressbar trough, infobar progressbar trough {
 }
 
 levelbar block {
-  min-width: 32px;
+  min-width: 0px;
   min-height: 1px;
 }
 
@@ -4908,9 +4923,7 @@ leaflet > box > scrolledwindow > viewport > list.navigation-sidebar > row.activa
 .xreader-window scrolledwindow.frame > .view:selected,
 .xreader-window scrolledwindow.frame > .view:active, .caja-desktop > widget.entry:selected, .caja-desktop > widget.entry:focus:selected, #MozillaGtkWidget.background > widget > scrolledwindow > textview text:selected, #MozillaGtkWidget.background > widget > scrolledwindow > textview text:selected:focus,
 #MozillaGtkWidget.background > widget > scrolledwindow > textview text selection, .nemo-window .nemo-window-pane widget.entry:selected:focus, .nemo-window .nemo-window-pane widget.entry:selected, .view:selected, .view:selected:focus,
-window.thunar notebook scrolledwindow.frame.standard-view .view:selected,
-textview text:selected,
-textview text:selected:focus, textview text selection:focus, textview text selection,
+window.thunar notebook scrolledwindow.frame.standard-view .view:selected:not(.rubberband), textview text selection:focus, textview text selection,
 iconview:selected,
 iconview:selected:focus, flowbox flowboxchild:selected, entry selection:focus, entry selection, menuitem.button.flat:active, menuitem.button.flat:active arrow, menuitem.button.flat:selected, menuitem.button.flat:selected arrow,
 modelbutton.flat:active,
@@ -4926,9 +4939,7 @@ leaflet > box > scrolledwindow > viewport > list.navigation-sidebar > row.activa
 .xreader-window scrolledwindow.frame > .view:selected,
 .xreader-window scrolledwindow.frame > .view:active, .caja-desktop > widget.entry:selected, .caja-desktop > widget.entry:focus:selected, #MozillaGtkWidget.background > widget > scrolledwindow > textview text:selected, #MozillaGtkWidget.background > widget > scrolledwindow > textview text:selected:focus,
 #MozillaGtkWidget.background > widget > scrolledwindow > textview text selection, .nemo-window .nemo-window-pane widget.entry:selected:focus, .nemo-window .nemo-window-pane widget.entry:selected, .view:selected, .view:selected:focus,
-window.thunar notebook scrolledwindow.frame.standard-view .view:selected,
-textview text:selected,
-textview text:selected:focus, textview text selection:focus, textview text selection,
+window.thunar notebook scrolledwindow.frame.standard-view .view:selected:not(.rubberband), textview text selection:focus, textview text selection,
 iconview:selected,
 iconview:selected:focus, flowbox flowboxchild:selected, entry selection:focus, entry selection, menuitem.button.flat:active, menuitem.button.flat:active arrow, menuitem.button.flat:selected, menuitem.button.flat:selected arrow,
 modelbutton.flat:active,
@@ -4944,9 +4955,7 @@ leaflet > box > scrolledwindow > viewport > list.navigation-sidebar > row.activa
 .xreader-window scrolledwindow.frame > .view:disabled:selected,
 .xreader-window scrolledwindow.frame > .view:disabled:active, .caja-desktop > widget.entry:disabled:selected, #MozillaGtkWidget.background > widget > scrolledwindow > textview text:disabled:selected,
 #MozillaGtkWidget.background > widget > scrolledwindow > textview text selection:disabled, .nemo-window .nemo-window-pane widget.entry:disabled:selected, .view:disabled:selected,
-window.thunar notebook scrolledwindow.frame.standard-view .view:disabled:selected,
-textview text:disabled:selected,
-textview text:disabled:selected:focus, textview text selection:disabled,
+window.thunar notebook scrolledwindow.frame.standard-view .view:disabled:selected:not(.rubberband), textview text selection:disabled,
 iconview:disabled:selected,
 iconview:disabled:selected:focus, flowbox flowboxchild:disabled:selected, entry selection:disabled, menuitem.button.flat:disabled:active, menuitem.button.flat:active arrow:disabled, menuitem.button.flat:disabled:selected, menuitem.button.flat:selected arrow:disabled,
 modelbutton.flat:disabled:active,
@@ -7983,7 +7992,7 @@ MsdOsdWindow.background.osd .progressbar {
   color: rgba(23, 24, 26, 0.55);
 }
 
-.budgie-popover carousel button.flat:not(.image-button):active:focused {
+.budgie-popover carousel button.flat:not(.image-button):active:focus {
   color: #5a74ca;
   background-color: transparent;
   border-color: transparent;
@@ -9357,7 +9366,7 @@ window.thunar notebook scrolledwindow.frame.standard-view {
   background-color: #ffffff;
 }
 
-window.thunar notebook scrolledwindow.frame.standard-view .view {
+window.thunar notebook scrolledwindow.frame.standard-view .view:not(.rubberband) {
   background-color: transparent;
 }
 
@@ -10215,7 +10224,7 @@ leaflet > box > scrolledwindow > viewport > list.navigation-sidebar > row.activa
   background-color: #5168b6;
 }
 
-hdyleaflet > box.vertical > searchbar, .polari-entry-area, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar,
+hdyleaflet > box.vertical > searchbar, .polari-entry-area, .geary-main-layout > leaflet > leaflet searchbar, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar,
 window.geary-main-window > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar, window#GearyMainWindow > box.vertical > paned > box.vertical > searchbar,
 window.geary-main-window > box.vertical > paned > box.vertical > searchbar,
 window.background.csd > hdyleaflet > box.vertical > searchbar,
@@ -10225,7 +10234,7 @@ window.background.csd > leaflet > box.vertical > searchbar, window.background.cs
   border: none;
 }
 
-hdyleaflet > box.vertical > searchbar > revealer > box, .polari-entry-area > revealer > box, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar > revealer > box,
+hdyleaflet > box.vertical > searchbar > revealer > box, .polari-entry-area > revealer > box, .geary-main-layout > leaflet > leaflet searchbar > revealer > box, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar > revealer > box,
 window.geary-main-window > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar > revealer > box, window#GearyMainWindow > box.vertical > paned > box.vertical > searchbar > revealer > box,
 window.geary-main-window > box.vertical > paned > box.vertical > searchbar > revealer > box,
 window.background.csd > hdyleaflet > box.vertical > searchbar > revealer > box,
@@ -10234,7 +10243,7 @@ window.background.csd > leaflet > box.vertical > searchbar > revealer > box, win
   border: none;
 }
 
-hdyleaflet > box.vertical > searchbar entry, .polari-entry-area entry, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry,
+hdyleaflet > box.vertical > searchbar entry, .polari-entry-area entry, .geary-main-layout > leaflet > leaflet searchbar entry, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry,
 window.geary-main-window > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry, window#GearyMainWindow > box.vertical > paned > box.vertical > searchbar entry,
 window.geary-main-window > box.vertical > paned > box.vertical > searchbar entry,
 window.background.csd > hdyleaflet > box.vertical > searchbar entry,
@@ -10243,7 +10252,7 @@ window.background.csd > leaflet > box.vertical > searchbar entry, window.backgro
   background-color: rgba(246, 246, 251, 0.1);
 }
 
-hdyleaflet > box.vertical > searchbar entry image, .polari-entry-area entry image, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry image,
+hdyleaflet > box.vertical > searchbar entry image, .polari-entry-area entry image, .geary-main-layout > leaflet > leaflet searchbar entry image, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry image,
 window.geary-main-window > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry image, window#GearyMainWindow > box.vertical > paned > box.vertical > searchbar entry image,
 window.geary-main-window > box.vertical > paned > box.vertical > searchbar entry image,
 window.background.csd > hdyleaflet > box.vertical > searchbar entry image,
@@ -10251,7 +10260,7 @@ window.background.csd > leaflet > box.vertical > searchbar entry image, window.b
   color: rgba(246, 246, 251, 0.8);
 }
 
-hdyleaflet > box.vertical > searchbar entry:focus, .polari-entry-area entry:focus, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry:focus,
+hdyleaflet > box.vertical > searchbar entry:focus, .polari-entry-area entry:focus, .geary-main-layout > leaflet > leaflet searchbar entry:focus, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry:focus,
 window.geary-main-window > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry:focus, window#GearyMainWindow > box.vertical > paned > box.vertical > searchbar entry:focus,
 window.geary-main-window > box.vertical > paned > box.vertical > searchbar entry:focus,
 window.background.csd > hdyleaflet > box.vertical > searchbar entry:focus,
@@ -10259,15 +10268,15 @@ window.background.csd > leaflet > box.vertical > searchbar entry:focus, window.b
   background-color: rgba(246, 246, 251, 0.12);
 }
 
-hdyleaflet > box.vertical > searchbar entry:disabled, .polari-entry-area entry:disabled, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry:disabled,
+hdyleaflet > box.vertical > searchbar entry:disabled, .polari-entry-area entry:disabled, .geary-main-layout > leaflet > leaflet searchbar entry:disabled, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry:disabled,
 window.geary-main-window > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry:disabled, window#GearyMainWindow > box.vertical > paned > box.vertical > searchbar entry:disabled,
 window.geary-main-window > box.vertical > paned > box.vertical > searchbar entry:disabled,
 window.background.csd > hdyleaflet > box.vertical > searchbar entry:disabled,
-window.background.csd > leaflet > box.vertical > searchbar entry:disabled, window.background.csd > box.horizontal > box.vertical > searchbar entry:disabled, hdyleaflet > box.vertical > searchbar entry label:disabled, .polari-entry-area entry label:disabled, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry label:disabled,
+window.background.csd > leaflet > box.vertical > searchbar entry:disabled, window.background.csd > box.horizontal > box.vertical > searchbar entry:disabled, hdyleaflet > box.vertical > searchbar entry label:disabled, .polari-entry-area entry label:disabled, .geary-main-layout > leaflet > leaflet searchbar entry label:disabled, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry label:disabled,
 window.geary-main-window > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry label:disabled, window#GearyMainWindow > box.vertical > paned > box.vertical > searchbar entry label:disabled,
 window.geary-main-window > box.vertical > paned > box.vertical > searchbar entry label:disabled,
 window.background.csd > hdyleaflet > box.vertical > searchbar entry label:disabled,
-window.background.csd > leaflet > box.vertical > searchbar entry label:disabled, window.background.csd > box.horizontal > box.vertical > searchbar entry label:disabled, hdyleaflet > box.vertical > searchbar entry image:disabled, .polari-entry-area entry image:disabled, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry image:disabled,
+window.background.csd > leaflet > box.vertical > searchbar entry label:disabled, window.background.csd > box.horizontal > box.vertical > searchbar entry label:disabled, hdyleaflet > box.vertical > searchbar entry image:disabled, .polari-entry-area entry image:disabled, .geary-main-layout > leaflet > leaflet searchbar entry image:disabled, window#GearyMainWindow > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry image:disabled,
 window.geary-main-window > overlay > box.vertical > paned.horizontal > box.sidebar.vertical > searchbar entry image:disabled, window#GearyMainWindow > box.vertical > paned > box.vertical > searchbar entry image:disabled,
 window.geary-main-window > box.vertical > paned > box.vertical > searchbar entry image:disabled,
 window.background.csd > hdyleaflet > box.vertical > searchbar entry image:disabled,

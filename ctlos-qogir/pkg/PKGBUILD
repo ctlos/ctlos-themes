@@ -1,7 +1,7 @@
 # Maintainer: Alex Creio <mailcreio at gmail>
 srcname=ctlos-themes
 pkgname=ctlos-qogir
-pkgver=1.3
+pkgver=1.4
 pkgrel=1
 pkgdesc='An Flat Gtk+ theme based on Qogir'
 url="https://github.com/ctlos/ctlos-themes"
@@ -16,5 +16,5 @@ sha256sums=('SKIP')
 package() {
   cd ${srcdir}/${srcname}/${pkgname}
   install -d "${pkgdir}/usr/share/themes"
-  ./install.sh -d "${pkgdir}/usr/share/themes"
+  ./install.sh -d "${pkgdir}/usr/share/themes" -n Ctlos
 }

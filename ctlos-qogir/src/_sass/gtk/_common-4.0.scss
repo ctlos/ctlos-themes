@@ -118,6 +118,7 @@ gridview {
 
   > child {
     padding: 3px;
+    border-radius: $bt_radius * 2;
 
     @include focus-ring();
 
@@ -604,21 +605,31 @@ button {
 
   // big standalone buttons like in Documents pager
   &.osd {
-    color: $osd_fg_color;
-    background-color: $osd_bg_color;
     border: none;
     box-shadow: none;
-    background-clip: border-box;
+    background-color: rgba(black, 0.65);
+    color: white;
 
     &.image-button {
-      padding: $cont_padding;
+      padding: $cont_padding / 2;
       min-height: $medium_size;
       min-width: $medium_size;
     }
 
-    &:hover { color: $selected_bg_color; }
-    &:active, &:checked, &.keyboard-activating { @include button(osd-active); }
-    &:disabled { @include button(osd-insensitive); }
+    &:hover {
+      background-color: rgba(black, 0.75);
+      color: white;
+    }
+
+    &:active, &:checked, &.keyboard-activating {
+      background-color: rgba(black, 0.85);
+      color: white;
+    }
+
+    &:disabled {
+      background-color: rgba(black, 0.35);
+      color: rgba(white, 0.45);
+    }
   }
 
   //overlay / OSD style
@@ -967,46 +978,6 @@ headerbar.titlebar {
   box-shadow: none;
 }
 
-// menu buttons
-modelbutton.flat {
-  min-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  outline-offset: -3px;
-  border-radius: $bt_radius;
-  @extend %undecorated_button;
-  border: none;
-
-  &:checked { color: $fg_color; }
-  &:disabled { color: $insensitive_fg_color; }
-
-  // FIXME: temporary workaround
-  check:last-child,
-  radio:last-child { margin-left: 8px; }
-
-  check:first-child,
-  radio:first-child { margin-right: 8px; }
-}
-
-modelbutton.flat arrow {
-  background: none;
-  min-width: 16px;
-  min-height: 16px;
-  opacity: 0.5; //dim icon
-
-  &:hover, &:selected, &:active, &:focus { background: none; }
-
-  &.left { -gtk-icon-source: -gtk-icontheme("go-previous-symbolic"); }
-
-  &.right { -gtk-icon-source: -gtk-icontheme("go-next-symbolic"); }
-}
-
-// oldstyle toolbar buttons
-.toolbar button {
-  margin: 2px;
-  @extend %flat_button;
-}
-
 // list buttons
 %list_button,
 list > row button.image-button:not(.flat):not(.up):not(.down) {
@@ -1182,6 +1153,21 @@ spinbutton {
   font-feature-settings: "tnum";
 }
 
+// Row spin
+row.spin {
+  .suffixes {
+    border-spacing: 0;
+  }
+
+  spinbutton {
+    margin: 10px 0;
+
+    > button {
+      margin: 0;
+    }
+  }
+}
+
 //
 // Comboboxes
 //
@@ -1292,9 +1278,10 @@ combobox {
 //
 
 %toolbar {
-  padding: 4px;
-  border-spacing: 4px;
+  padding: $cont_padding / 2;
+  border-spacing: $cont_padding / 2;
   background-color: $bg_color;
+  color: $fg_color;
 }
 
 toolbar {
@@ -1310,17 +1297,24 @@ toolbar {
     @extend %osd;
   }
 
-  switch,
-  scale,
-  entry,
-  spinbutton,
+  .linked > button,
+  .linked > entry { margin-right: 0; }
+}
+
+// oldstyle toolbar buttons
+.toolbar {
+  @extend %toolbar;
+  border-spacing: 0;
+  padding: $cont_padding;
+
   button {
-    margin-right: 1px;
-    margin-bottom: 1px;
+    @extend %flat_button;
   }
 
-  .linked > button,
-  .linked > entry { margin-right:0; }
+  entry {
+    min-height: 0;
+    padding: 0 8px;
+  }
 }
 
 searchbar > revealer > box {
@@ -1487,7 +1481,7 @@ headerbar {
 
   &.default-decoration {
     min-height: 30px;
-    padding: 0 if($titlebutton == 'circle', 8px, 3px);
+    // padding: 0 if($titlebutton == 'circle', 8px, 3px);
 
     windowcontrols {
       menubutton button {
@@ -1929,8 +1923,8 @@ path-bar > button {
 //
 columnview.view,
 treeview.view {
-  border-left-color: $solid_borders_color;   // this is actually the tree lines color,
-  border-top-color: $solid_borders_color;         // while this is the grid lines color, better then nothing
+  border-left-color: $solid_borders_color; // this is actually the tree lines color,
+  border-top-color: $solid_borders_color; // while this is the grid lines color, better then nothing
 
   @include focus-ring($offset: -3px)
 
@@ -2026,31 +2020,41 @@ treeview.view {
 
   > header {
     > button {
-      $_column_header_color: mix($fg_color, $base_color, 80%);
-
       min-height: 0;
       min-width: 0;
       padding: 3px $cont_padding;
       font-weight: bold;
-      color: $_column_header_color;
+      color: $alt_fg_color;
       background-color: $base_color;
       background-image: none;
+      background-clip: padding-box;
       border-style: none solid none none;
       border-radius: 0;
       border-image: linear-gradient(to bottom,
                                     $base_color 20%,
-                                    transparentize(if($variant == 'light', black, white), 0.89) 20%,
-                                    transparentize(if($variant == 'light', black, white), 0.89) 80%,
+                                    $borders_color 20%,
+                                    $borders_color 80%,
                                     $base_color 80%) 0 1 0 0 / 0 1px 0 0 stretch;
 
-      &:hover { color: $selected_bg_color; }
-      &:active { color: $fg_color; }
+      label { color: $alt_fg_color; }
+
+      &:hover {
+        color: $selected_bg_color;
+        label { color: $selected_bg_color; }
+      }
+
+      &:active {
+        color: $fg_color;
+        label { color: $selected_bg_color; }
+      }
 
       &:active, &:hover { background-color: $base_color; }
 
       &:disabled {
         border-color: $bg_color;
         background-image: none;
+
+        label { color: $insensitive_fg_color; }
       }
 
       &:last-child {
@@ -2124,7 +2128,7 @@ popover.menu {
   padding: 0;
 
   &.background separator {
-    margin: 3px 0;
+    margin: $cont_padding / 2 0;
     background-color: $menu_bg;
   }
 
@@ -2156,11 +2160,11 @@ popover.menu {
   }
 
   box.circular-buttons {
-    padding: 6px;
+    padding: $cont_padding;
 
     button.circular.image-button.model {
       @extend %list_button;
-      padding: 6px;
+      padding: $cont_padding;
 
       &:focus {
         background-color: rgba($fg_color, 0.1);
@@ -2194,28 +2198,6 @@ popover.menu {
     margin-right: -6px;
   }
 
-  modelbutton {
-    min-height: 24px;
-    min-width: 38px;
-    padding: 2px 12px;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    color: $fg_color;
-
-    @if $window == 'round' {
-      border-radius: $corner_radius - 3px;
-    } @else {
-      border-radius: $bt_radius;
-    }
-
-    &:hover:not(:focus-visible),
-    &:selected:focus-visible {
-      color: $selected_fg_color;
-      background-color: $selected_bg_color;
-    }
-  }
-
   label.title {
     font-weight: bold;
     padding: 4px 28px; //this will fall apart with font sizing
@@ -2232,26 +2214,21 @@ popover.background {
   font: initial; // Decouple the font of popovers from their entry/textvie
   background-color: transparent;
 
-  > arrow,
+  > arrow {
+    background-clip: padding-box;
+    background-color: $_popover_bg;
+    border: 1px solid $borders_color;
+  }
+
   > contents {
-    padding: 6px;
-    background-clip: border-box;
+    padding: $cont_padding;
+    background-clip: padding-box;
     background-color: $_popover_bg;
     border-radius: $material_radius;
-    border: 1px solid $borders_color;
-    box-shadow: 0 2px 8px 0 if($variant=='light', rgba(black, 0.1), rgba(black, 0.15));
+    border: none;
+    box-shadow: 0 2px 8px 0 if($variant=='light', rgba(black, 0.1), rgba(black, 0.15)), 0 0 0 1px $borders_color;
     color: $text_color;
-  }
 
-  separator { background-color: $_popover_bg; }
-
-  label.separator {
-    @extend .dim-label;
-
-    color: $fg_color;
-  }
-
-  > contents {
     > list,
     > .view,
     > toolbar {
@@ -2260,7 +2237,14 @@ popover.background {
     }
 
     separator {
-      margin: 3px;
+      margin: $cont_padding / 2 0;
+      background-color: $_popover_bg;
+    }
+
+    label.separator {
+      @extend .dim-label;
+  
+      color: $fg_color;
     }
 
     list {
@@ -2270,7 +2254,8 @@ popover.background {
 
       > row {
         margin: 0;
-        padding: 3px 6px;
+        min-height: 24px;
+        padding: 2px 8px;
         border-radius: $bt_radius;
       }
     }
@@ -2285,6 +2270,8 @@ popover.background {
 
       > row {
         margin: 0;
+        min-height: 24px;
+        padding: 2px 8px;
         border-radius: $bt_radius;
       }
     }
@@ -2306,6 +2293,54 @@ popover.background {
   &.touch-selection,
   &.magnifier {
     button { @extend %osd_button; }
+  }
+}
+
+// menu buttons
+modelbutton.flat {
+  min-height: 24px;
+  min-width: 38px;
+  padding: 2px 8px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  color: $fg_color;
+  background-color: transparent;
+  border-radius: $bt_radius;
+
+  &:hover:not(:focus-visible),
+  &:selected:focus-visible {
+    color: $selected_fg_color;
+    background-color: $selected_bg_color;
+
+    &:active {
+      color: $selected_fg_color;
+      background-color: mix($fg_color, $selected_bg_color, 10%);
+    }
+  }
+
+  &:disabled {
+    color: $insensitive_fg_color;
+  }
+
+  // FIXME: temporary workaround
+  check:last-child,
+  radio:last-child { margin-left: 8px; margin-right: -2px; }
+
+  check:first-child,
+  radio:first-child { margin-right: 8px; margin-left: -2px; }
+
+  arrow {
+    background: none;
+    min-width: 16px;
+    min-height: 16px;
+    opacity: 0.5; //dim icon
+  
+    &:hover, &:selected, &:active, &:focus { background: none; }
+  
+    &.left { -gtk-icon-source: -gtk-icontheme("go-previous-symbolic"); }
+  
+    &.right { -gtk-icon-source: -gtk-icontheme("go-next-symbolic"); }
   }
 }
 
@@ -3200,7 +3235,11 @@ list {
   background-color: $base_color;
   border-color: $borders_color;
 
-  > row { padding: 2px; }
+  > row {
+    padding: 2px;
+    background-clip: padding-box;
+  }
+
   > row.expander { padding: 0px; }
   > row.expander .row-header { padding: 2px; }
 
@@ -3215,9 +3254,45 @@ list {
   }
 }
 
+listview > header {
+  @extend .heading;
+  padding: 2px;
+  padding-top: 18px;
+  padding-bottom: 6px;
+}
+
+%row_activatable {
+  &:hover {
+    transition: background-color 50ms $ease-out-quad;
+    background-color: if($variant == 'light', rgba(black, 0.05), rgba(white, 0.03));
+  }
+
+  &:active {
+    transition: background-color 150ms $ease-out-quad;
+    background-color: if($variant == 'light', rgba(black, 0.12), rgba(white, 0.1));
+  }
+
+  &:checked {
+    background-color: if($variant == 'light', rgba(black, 0.1), rgba(white, 0.08));
+  }
+
+  &:disabled {
+    color: $insensitive_fg_color;
+    image { color: inherit; }
+  }
+
+  &:selected {
+    &, &:hover, &:active {
+      @extend %selected_items;
+    }
+  }
+}
+
 row {
   @include focus-ring($offset: -3px);
+  @extend %row_activatable;
 
+  // AdwActionRow
   label.subtitle {
     font-size: smaller;
     @extend .dim-label;
@@ -3226,6 +3301,7 @@ row {
   > box.header {
     margin-left: 12px;
     margin-right: 12px;
+    border-spacing: 6px;
     min-height: 50px;
 
     > .icon:disabled {
@@ -3236,34 +3312,50 @@ row {
       margin-top: 6px;
       margin-bottom: 6px;
       border-spacing: 3px;
-    }
-  }
+      padding: 0;
 
-  &:selected {
-    @extend %selected_items;
-  }
-
-  @at-root %row_activatable, &.activatable {
-    &.has-open-popup,
-    &:hover {
-      transition: none;
-      background-color: if($variant == 'light', rgba(black, 0.05), rgba(white, 0.03));
-    }
-
-    &:active, &:checked {
-      transition: all 150ms $ease-out-quad;
-      background-color: if($variant == 'light', rgba(black, 0.1), rgba(white, 0.08));
-    }
-
-    &:disabled {
-      color: $insensitive_fg_color;
-      image { color: inherit; }
-    }
-
-    &:selected {
-      &, &.has-open-popup, &:hover {
-        @extend %selected_items;
+      // Specificity bump for header bar
+      &,
+      > .title,
+      > .subtitle {
+        padding: 0;
+        font-weight: inherit;
       }
+    }
+
+    > .prefixes,
+    > .suffixes {
+      border-spacing: 6px;
+
+      > .suffixes {
+        border-spacing: 6px;
+      }
+    }
+
+    > .icon,
+    > .prefixes {
+      &:dir(ltr) { margin-right: 6px; }
+      &:dir(rtl) { margin-left: 6px; }
+    }
+  }
+
+  &.property > box.header > box.title > {
+    .title {
+      font-size: smaller;
+      @extend .dim-label;
+    }
+
+    .subtitle {
+      font-size: inherit;
+      opacity: 1;
+    }
+  }
+
+  &.property.monospace {
+    font-family: inherit;
+
+    & > box.header > box.title > .subtitle {
+      font-family: monospace;
     }
   }
 
@@ -3287,6 +3379,134 @@ row {
 
   button:hover &.activatable:hover, button:active &.activatable:hover {
     background-color: transparent;
+  }
+}
+
+/******************************
+ * AdwEntryRow and AdwSpinRow *
+ ******************************/
+
+ row.entry {
+  &:disabled {
+    text {
+      opacity: 0.35;
+    }
+
+    .dim-label, .subtitle {
+      opacity: 1;
+    }
+  }
+
+  > box.header {
+    border-spacing: 0;
+    margin-left: 6px;
+    margin-right: 6px;
+
+    > .editable-area {
+      padding: 0 6px;
+
+      > .edit-icon, > .indicator {
+        min-width: 24px;
+        min-height: 24px;
+        padding: 5px;
+        -gtk-icon-shadow: none;
+      }
+
+      > .edit-icon, > .indicator, > .apply-button {
+        &:dir(ltr) { margin-left: 6px; }
+        &:dir(rtl) { margin-right: 6px; }
+      }
+
+      > .edit-icon:disabled {
+        opacity: 0.45;
+      }
+
+      > .indicator {
+        opacity: 0.65;
+      }
+    }
+
+    > .prefixes {
+      &:dir(ltr) { margin-left: 6px; }
+      &:dir(rtl) { margin-right: 6px; }
+    }
+
+    > .suffixes {
+      &:dir(ltr) { margin-right: 6px; }
+      &:dir(rtl) { margin-left: 6px; }
+    }
+  }
+
+  &.monospace {
+    font-family: inherit;
+
+    text {
+      font-family: monospace;
+    }
+  }
+}
+
+row.spin {
+  spinbutton {
+    background: none;
+    border-spacing: 0;
+    box-shadow: none;
+
+    &, &:focus {
+      outline: none;
+    }
+  }
+}
+
+row.entry,
+row.spin {
+  &:not(:selected).activatable.focused:hover,
+  &:not(:selected).activatable.focused:active {
+    background-color: transparent;
+  }
+
+  @each $e_type in error, warning, success {
+    &.#{$e_type} {
+      color: $selected_bg_color;
+
+      .dim-label, .subtitle {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/***************
+ * AdwComboRow *
+ ***************/
+
+row.combo {
+  image.dropdown-arrow:disabled {
+    filter: Opacity(0.35);
+  }
+
+  listview.inline {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: inherit;
+
+    &, &:disabled {
+      background: none;
+      color: inherit;
+    }
+  }
+
+  popover > contents {
+    min-width: 120px;
+
+    .combo-searchbar {
+      margin: 6px;
+
+      + scrolledwindow {
+        @include undershoot(top);
+      }
+    }
   }
 }
 
@@ -3343,38 +3563,39 @@ row.expander {
   }
 
   // AdwExpanderRow arrow rotation
-
   image.expander-row-arrow {
+    @extend .dim-label;
+
     transition: 200ms $ease-out-quad;
     @include margin-start(6px);
+
+    &:dir(ltr) {
+      -gtk-icon-transform: rotate(0.5turn);
+    }
+
+    &:dir(rtl) {
+      -gtk-icon-transform: rotate(-0.5turn);
+    }
+
+    &:disabled {
+      filter: opacity(0.45);
+    }
   }
 
   &:checked image.expander-row-arrow {
     -gtk-icon-transform: rotate(0turn);
-  }
 
-  &:not(:checked) image.expander-row-arrow {
-    @extend .dim-label;
-
-    &:dir(ltr) {
-      -gtk-icon-transform: rotate(-0.25turn);
+    &:not(:disabled) {
+      color: $selected_bg_color;
     }
-
-    &:dir(rtl) {
-      -gtk-icon-transform: rotate(0.25turn);
-    }
-  }
-
-  &:checked image.expander-row-arrow:not(:disabled) {
-    color: $selected_bg_color;
   }
 
   .osd &:checked image.expander-row-arrow:not(:disabled) {
     color: inherit;
   }
 
-  image.expander-row-arrow:disabled {
-    filter: opacity(0.45);
+  &.property box > list > row {
+    @extend .property;
   }
 }
 
@@ -3382,8 +3603,15 @@ row.expander {
  * Boxed Lists *
  *****************/
 
+list.content {
+  @extend %card;
+
+  > row {
+    @extend %boxed_list_row;
+  }
+}
+
 // Deprecated: use .boxed-list instead
-list.content,
 list.boxed-list {
   @extend %card;
 
@@ -3415,6 +3643,69 @@ list.boxed-list {
         border-bottom-left-radius: $bt_radius;
         border-bottom-right-radius: $bt_radius;
         border-bottom-width: 0;
+      }
+    }
+  }
+}
+
+list.boxed-list-separate {
+  background: none;
+  color: $text_color;
+
+  > row {
+    @extend %card;
+
+    &:selected {
+      background-color: gtkalpha(currentColor, .03);
+    }
+
+    border: none;
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:not(.expander) {
+      &:not(:selected).activatable {
+        &:hover {
+          background-color: $base_color;
+          background-image: image(color-mix(in srgb, currentColor 3%, transparent));
+        }
+
+        &:active {
+          background-color: $base_color;
+          background-image: image(color-mix(in srgb, currentColor 8%, transparent));
+        }
+
+        &.has-open-popup {
+          background-color: $base_color;
+          background-image: image(color-mix(in srgb, currentColor 3%, transparent));
+        }
+      }
+    }
+
+    &.entry, &.spin {
+      &:not(:selected).activatable.focused:hover,
+      &:not(:selected).activatable.focused:active {
+        background-color: $base_color;
+        background-image: none;
+      }
+    }
+
+    &.expander {
+      row.header {
+        @extend %boxed_list_row;
+        border-top-left-radius: $bt_radius;
+        border-top-right-radius: $bt_radius;
+      }
+
+      &:not(:checked) row.header,
+      &.expander:checked list.nested,
+      &.expander:checked list.nested > row:last-child {
+        border-bottom-left-radius: $bt_radius;
+        border-bottom-right-radius: $bt_radius;
+        border-bottom: none;
       }
     }
   }
@@ -3722,6 +4013,67 @@ window.dialog.message { // Message Dialog styling
   }
 }
 
+window.messagedialog {
+  .response-area {
+    > button {
+      padding: $cont_padding $cont_padding * 2;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      background-color: $dialog_bg;
+      color: $dialog_fg;
+
+      &:hover {
+        background-color: rgba($dialog_fg, 0.06);
+        border: none;
+        box-shadow: none;
+      }
+
+      &:active {
+        background-color: rgba($dialog_fg, 0.15);
+        color: $dialog_fg;
+        border: none;
+        box-shadow: none;
+      }
+
+      &.suggested {
+        color: $suggested_color;
+
+        &:hover {
+          background-color: rgba($suggested_color, 0.12);
+        }
+  
+        &:active {
+          background-color: rgba($suggested_color, 0.25);
+        }  
+      }
+
+      &.destructive {
+        color: $destructive_color;
+
+        &:hover {
+          background-color: rgba($destructive_color, 0.12);
+        }
+  
+        &:active {
+          background-color: rgba($destructive_color, 0.25);
+        } 
+      }
+    }
+
+    &:not(.compact) > button {
+      margin-top: 0;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    &.compact > button {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+
 //
 // Filechooser
 //
@@ -3859,7 +4211,7 @@ separator.sidebar {
       color: $fg_color;
     }
 
-    &:actice {
+    &:active {
       background-color: rgba($fg_color, 0.15);
       color: $fg_color;
     }
@@ -4412,25 +4764,6 @@ window {
 //
 
 %csd_titlebutton {
-  @if $titlebutton == 'square' {
-    &.default-decoration {
-      windowcontrols > button {
-        &.close, &.maximize, &.minimize {
-          min-width: $large_size;
-          min-height: 30px;
-        }
-      }
-    }
-
-    > windowhandle box.end > windowcontrols {
-      margin-right: -$cont_padding;
-    }
-
-    > windowhandle box.start > windowcontrols {
-      margin-left: -$cont_padding;
-    }
-  }
-
   windowcontrols > button { // csd titlebuttons
     margin: 0;
     padding: 0;
@@ -4468,6 +4801,34 @@ window {
       &:active {
         background-color: $wm_button_close_active_bg;
         color: white;
+      }
+    }
+  }
+
+  @if $titlebutton == 'square' {
+    &.default-decoration {
+      windowcontrols > button {
+        &.close, &.maximize, &.minimize {
+          min-width: $large_size;
+          min-height: 30px;
+        }
+      }
+    }
+
+    > windowhandle box.end > windowcontrols {
+      margin-right: -$cont_padding;
+    }
+
+    > windowhandle box.start > windowcontrols {
+      margin-left: -$cont_padding;
+    }
+  } @else {
+    &.default-decoration {
+      windowcontrols > button {
+        &.close, &.maximize, &.minimize {
+          min-width: 24px;
+          min-height: 24px;
+        }
       }
     }
   }
